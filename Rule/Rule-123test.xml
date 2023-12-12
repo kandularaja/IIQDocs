@@ -1,0 +1,172 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE Rule PUBLIC "sailpoint.dtd" "sailpoint.dtd">
+<Rule created="1681814065480" id="c0a81db3879319e3818793ee1148016d" language="beanshell" modified="1700802077788" name="123Test">
+  <Source>
+ // import sailpoint.object.ClassLists;
+  import java.util.*;
+ import sailpoint.object.Identity;
+  import java.util.*;
+  import java.sql.*;
+  import sailpoint.object.ProvisioningPlan.AccountRequest;
+  import sailpoint.object.ProvisioningPlan.AttributeRequest;
+  import sailpoint.object.ProvisioningPlan;;
+  import sailpoint.api.Provisioner;
+  import sailpoint.object.Filter;
+   import sailpoint.object.QueryOptions;
+  import sailpoint.api.IdentityService;
+  
+  IdentityService ids = new IdentityService(context);
+  
+   
+  
+  Filter myFilter1 = Filter.eq("correlated", true);
+QueryOptions qo1 = new QueryOptions();
+qo1.addFilter(myFilter1);
+  
+ List id1 = context.getObjects(Identity.class,qo1);
+  
+  for(Identity id:id1)
+  {
+    String strcomment ="Identity Name:  "+id.getName()+",has "+ids.countLinks(id) +" Links"; 
+    System.out.println(strcomment);
+  }
+return id1.size();
+  
+  AccountRequest AccReq1 = new AccountRequest();
+  AttributeRequest atrb1 = new AttributeRequest();
+  ProvisioningPlan provPlanUser1 = new ProvisioningPlan();
+  Provisioner prov= new Provisioner(context);
+  
+  
+  //Setting nativeidentity to plan (AD)
+  provPlanUser1.setNativeIdentity(id.getName());
+  provPlanUser1.setTargetIntegration("WS-Eshaim"); 
+  provPlanUser1.setIdentity(id);
+  
+  AccReq1.setApplication("WS-Eshaim");
+  AccReq1.setNativeIdentity(id.getName());  
+  AccReq1.setOp(ProvisioningPlan.ObjectOperation.Create);
+  AccReq1.add(new AttributeRequest("USER_ID",ProvisioningPlan.Operation.Set, "1a2b3a4d"));
+  provPlanUser1.add(AccReq1);
+  prov.execute(provPlanUser1);
+  context.commitTransaction();  
+//
+  return provPlanUser1;
+  
+ // return context.decrypt("2:ACP:H9NgwJUnw8aYoH4FK/LO+Z7rtvnXJWBW1mo8KXhkHc0=");
+ // Workflow wf = context.getObjectByName(Workflow.class,"Test-Lifecycle Event - Leaver");
+ // if(wf!=null)
+ // return wf;
+  Identity id = context.getObjectByName(Identity.class,"Nicholas Stevens");
+  //return id;
+  List roleAssignments = id.getAssignedRoles();
+   if(roleAssignments!=null) {
+    for(Bundle ra: roleAssignments) {
+    // return ra;
+     // if(ra.isNegative()) {
+      //   return ra;
+       // toRemove.add(ra);
+       // hasNegative = true;
+      //}
+    }
+  }
+
+  List bundles = id.getBundles();
+  //return bundles;
+  for(Bundle bdl:bundles)
+  {
+    System.out.println("Bundle Name::  "+bdl.getName());
+    //id.removeRoleDetection(bdl.getName(),null);
+    id.remove(bdl);
+   //id.removeAssignedRole(bdl);
+    System.out.println(bdl.toXml());
+  }
+  
+context.saveObject(id);  
+context.commitTransaction();
+  return id;
+  //return roleAssignments;
+  boolean hasNegative = false;
+  List toRemove = new LinkedList();
+  
+  if(roleAssignments!=null) {
+   return roleAssignments;
+    for(RoleAssignment ra: roleAssignments) {
+     return ra;
+     // if(ra.isNegative()) {
+      //   return ra;
+        toRemove.add(ra);
+       // hasNegative = true;
+      //}
+    }
+  }
+
+ // if(hasNegative ) {
+    for(RoleAssignment ra: toRemove) {
+      return ra;
+      id.removeRoleAssignment(ra);
+    }
+    context.saveObject(id);
+    context.commitTransaction();
+ // }
+  
+  
+  return "Done";
+  
+ // return context.decrypt("3:ACP:bKII7iwJVIKEvvjLgK9dRfzIJIVCYgW0FkM8VEx0uoQ=");
+  
+  
+    Identity id1=context.getObjectByName(Identity.class,"Adam Kennedy");
+ // return id1.getAttributes();
+  List lst = id1.getExceptions();
+  return lst;
+  //return id1.getAttribute("displayName");
+ //return context.decrypt("1:ACP:5AmMpsetA3womebLti1IDRroPWQ6mw5DS8BmtmGIh+o=");
+
+List l = new ArrayList();
+  int i= ClassLists.VolumeClasses.length;
+	 //System.out.println("VolumeClasses:: "+i);
+	 int j= ClassLists.MajorClasses.length;
+	 //System.out.println("MajorClasses:: "+j);
+ // l.add(i);
+ // l.add(j);
+
+for (Class clazz: ClassLists.VolumeClasses) {
+  l.add(clazz.getTypeName());
+  l.add(clazz.getCanonicalName());
+  l.add(clazz.getSimpleName());
+}
+// Add this in, its a special type of Identity
+l.add("Workgroup");
+ //return l;
+ /* import sailpoint.object.*;
+  import sailpoint.api.*;
+  import java.util.*;
+
+  String srcIdName = "Viru Sehwag";
+  String tgtIdName = "Allen Burton";    
+  String appName = "AD-Application";
+  String acctToMove = "CN=Allen Burton,OU=People,OU=Demo,DC=Eshiam,DC=com"; // The name/nativeIdentity of the Account getting moved.
+
+  Identity id1=context.getObjectByName(Identity.class,srcIdName);
+  if(id1 == null)
+    return "Identity Not Availablr";
+  List excp=id1.getExceptions();
+  List store=new ArrayList();
+  for(EntitlementGroup eg:excp){
+    if(eg.getApplication().getName().equalsIgnoreCase(appName)){
+      store.add(eg);
+    }
+  }
+
+  if(store != null){
+    Identity id2=context.getObjectByName(Identity.class,srcIdName);
+    if(id2 == null)
+      return "Identity Not Available";
+    List excp=id2.getExceptions();
+    excp.add(store);
+  }
+  id1.setExceptions(execp);
+  return id1;*/
+  </Source>
+</Rule>
