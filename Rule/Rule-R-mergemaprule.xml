@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE Rule PUBLIC "sailpoint.dtd" "sailpoint.dtd">
+<Rule created="1658205648362" id="c0a80c0182101158818214c235ea0179" language="beanshell" modified="1681117374237" name="R!-MergeMapRule" type="MergeMaps">
+  <Description>This rule merges two maps together. This is used when there are multiple lines that represent the same object, and certain attributes have to merged.</Description>
+  <Signature returnType="Map">
+    <Inputs>
+      <Argument name="log">
+        <Description>
+          The log object associated with the SailPointContext.
+        </Description>
+      </Argument>
+      <Argument name="context">
+        <Description>
+          A sailpoint.api.SailPointContext object that can be used to query the database if necessary.
+        </Description>
+      </Argument>
+      <Argument name="application">
+        <Description>
+          The application associated with the Connector calling the rule.
+        </Description>
+      </Argument>
+      <Argument name="schema">
+        <Description>
+          The Schema from the application.
+        </Description>
+      </Argument>
+      <Argument name="current">
+        <Description>
+          The current Map object that needs merging.
+        </Description>
+      </Argument>
+      <Argument name="newObject">
+        <Description>
+          The new Map object that needs merging.
+        </Description>
+      </Argument>
+      <Argument name="mergeAttrs">
+        <Description>
+          A List of the attributes to merge.
+        </Description>
+      </Argument>
+    </Inputs>
+    <Returns>
+      <Argument name="map">
+        <Description>
+          A Map of the current and new maps, merged according to the attributes list.
+        </Description>
+      </Argument>
+    </Returns>
+  </Signature>
+  <Source>import java.util.Map;
+import java.util.HashMap;
+System.out.println("Called Merge Maps Rule");
+Map merged = new HashMap(current);
+for ( String attrName : mergeAttrs ) {
+ Object currentValue = current.get(attrName);
+ Object additionalValue = newObject.get(attrName);
+ if ( currentValue != null ) {
+ if ( additionalValue != null ) {
+ if ( currentValue instanceof List ) {
+ if ( additionalValue instanceof List ) {
+ // loop through additional values list adding to current
+ // value list if not already there 
+ for ( Object value : (List)additionalValue ) {
+ if (!((List)currentValue).contains(value)) {
+ 
+((List)currentValue).add(value);
+ }
+ } 
+ } else {
+ if (!((List)currentValue).contains(additionalValue) ) {
+ // Add value to list if not already there
+((List)currentValue).add(additionalValue);
+ }
+ } 
+ } else { // currentValue is not list
+ // replace attribute with new object value in return map
+ merged.put(attrName, additionalValue);
+ }
+ } 
+ } else { // current value is null
+ if ( additionalValue != null ) {
+ // Add additionalValue as attribute in map
+ merged.put(attrName, additionalValue);
+ }
+ } 
+} // end for
+return merged;</Source>
+</Rule>

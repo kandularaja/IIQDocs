@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE Rule PUBLIC "sailpoint.dtd" "sailpoint.dtd">
+<Rule created="1657797453404" id="c0a80c0181f8157b8181fc6da65c020f" language="beanshell" modified="1681117373616" name="R1-MaptoResourceObjRule" type="Transformation">
+  <Description>This rule is used by the delimited file connector and will transform a Map into a ResourceObject.</Description>
+  <Signature returnType="ResourceObject">
+    <Inputs>
+      <Argument name="log">
+        <Description>
+          The log object associated with the SailPointContext.
+        </Description>
+      </Argument>
+      <Argument name="context">
+        <Description>
+          A sailpoint.api.SailPointContext object that can be used to query the database if necessary.
+        </Description>
+      </Argument>
+      <Argument name="application">
+        <Description>
+          The application being processed.
+        </Description>
+      </Argument>
+      <Argument name="schema">
+        <Description>
+      The schema being iterated.
+        </Description>
+      </Argument>
+      <Argument name="object">
+        <Description>
+      A Map representing the data to be transformed.
+        </Description>
+      </Argument>
+    </Inputs>
+    <Returns>
+      <Argument name="resourceObject">
+        <Description>
+          The resulting ResourceObject.
+        </Description>
+      </Argument>
+    </Returns>
+  </Signature>
+  <Source>import sailpoint.api.SailPointContext;  
+import sailpoint.object.Identity;
+import sailpoint.object.*; 
+import java.util.*;  
+import java.io;
+
+       System.out.println("Called Map to Resource Object Rule");  
+       Map Emp = new HashMap();
+  return Emp ;</Source>
+</Rule>

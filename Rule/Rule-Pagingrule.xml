@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE Rule PUBLIC "sailpoint.dtd" "sailpoint.dtd">
+<Rule created="1682071642090" id="c0a81db3879319e38187a3485fea0a84" language="beanshell" modified="1682073377125" name="pagingrule" type="WebServiceAfterOperationRule">
+  <Description>The Web Services connector will call this rule after performing ANY defined operation. This rule can be used to update the parsed resource object and/or add persistent values to the application's data.
+(See information about what to return for more information)</Description>
+  <Signature returnType="Object">
+    <Inputs>
+      <Argument name="log">
+        <Description>
+          The log object associated with the SailPointContext.
+        </Description>
+      </Argument>
+      <Argument name="context">
+        <Description>
+          A sailpoint.api.SailPointContext object that can be used to query the database if necessary.
+        </Description>
+      </Argument>
+      <Argument name="application">
+        <Description>The application whose data file is being processed.</Description>
+      </Argument>
+      <Argument name="requestEndPoint">
+        <Description>The current request information contain header, body ,response object</Description>
+      </Argument>
+      <Argument name="processedResponseObject">
+        <Description>Response Object processed by the Web services connector</Description>
+      </Argument>
+      <Argument name="rawResponseObject">
+        <Description>Response Object returned from the end system</Description>
+      </Argument>
+      <Argument name="restClient">
+        <Description>REST Client Object</Description>
+      </Argument>
+    </Inputs>
+    <Returns>
+      <Argument name="Map">
+        <Description>A newly created map containing a 'data' key and optionally, a 'connectorStateMap' key.  The 'data' value should be set to a map containing a parsed list of accounts/groups.  
+                The 'connectorStateMap' value can be set to a map containing values that will be persisted to the application definition.
+                </Description>
+      </Argument>
+    </Returns>
+  </Signature>
+  <Source>System.out.println("rawResponseObject::::::::::::----------"+rawResponseObject);
+System.out.println("requestEndPoint::::::::::::----------"+requestEndPoint);
+System.out.println("application::::::::::::----------"+application);
+System.out.println("processedResponseObject::::::::::::----------"+processedResponseObject);
+System.out.println("restClient::::::::::::----------"+restClient);
+return Map;</Source>
+</Rule>

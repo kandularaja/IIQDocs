@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE Rule PUBLIC "sailpoint.dtd" "sailpoint.dtd">
+<Rule created="1681904173551" id="c0a81db3879319e38187994d01ef037c" language="beanshell" modified="1700807792866" name="TestdRule" type="Workflow">
+  <Source>
+
+  import sailpoint.api.*;
+  import sailpoint.object.Bundle;
+  import sailpoint.tools.*;
+  import sailpoint.web.messages.MessageKeys;
+    import sailpoint.object.Filter;
+   import sailpoint.object.QueryOptions;
+  import sailpoint.object.Profile;
+   import sailpoint.object.Identity;
+
+  Certification certn = context.getObjectById(Certification.class,"Entitlement Owner Access Review for Americana-CrunchTime");
+  if(certn!=null){
+    List ents = certn.getEntities();
+    if(ents!=null){
+      for(CertificationEntity ent : ents){ 
+        List items = ent.getItems();
+        if(items!=null){
+          for(CertificationItem item : items){
+            Identity idnt=context.getObjectByName(Identity.class,item.getTargetName());
+            List lstBundles = idnt.getAssignedRoles();
+          //return lstBundles;
+            if(lstBundles!=null){
+              for(Bundle role : lstBundles){
+               // return role.getDisplayName();
+                List profs = role.getProfiles();                
+                
+                if(profs!=null){
+                 
+                  for(Profile prof : profs){
+                     return prof;
+                    List consts = prof.getConstraints();
+                    if(conts!=null){
+                      for(Filter constr : consts){
+                        return constr;
+                        if(constr.getValue() instanceof String @and constr.getValue().equals(item.getExceptionAttributeValue())) return "true"; 
+                        else if(constr.getValue() instanceof List @and constr.getValue().contains(item.getExceptionAttributeValue())) return "true"; 
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  return "false";
+  </Source>
+</Rule>

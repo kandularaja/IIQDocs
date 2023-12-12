@@ -1,0 +1,126 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE Rule PUBLIC "sailpoint.dtd" "sailpoint.dtd">
+<Rule created="1657691782842" id="c0a80c0181d917b08181f6213eba0c97" language="beanshell" modified="1681117373278" name="SetManagerName" type="IdentityAttribute">
+  <Description>Identity attribute rules are used when the value is not simply a copy of an application account attribute value.  A transformation may be necessary on the account attribute, or several account attributes may need to be combined to produce the identity attribute.
+
+This rule can be called in two ways: as a global mapping rule and an application mapping rule.  A global mapping rule is called whenever the identity is refreshed.  The rule can look at any account attributes.  An application mapping rule is called only when the identity contains an account link for that application, this link is passed in the "link" argument which is not passed in global mapping rules.</Description>
+  <Signature returnType="String">
+    <Inputs>
+      <Argument name="log">
+        <Description>
+          The log object associated with the SailPointContext.
+        </Description>
+      </Argument>
+      <Argument name="context">
+        <Description>
+          A sailpoint.api.SailPointContext object that can be used to query the database if necessary.
+        </Description>
+      </Argument>
+      <Argument name="environment" type="Map">
+        <Description>
+           Arguments passed to the aggregation or refresh task.
+        </Description>
+      </Argument>
+      <Argument name="identity">
+        <Description>
+           The Identity object that represents the user
+           that is being aggregated.
+        </Description>
+      </Argument>
+      <Argument name="attributeDefinition">
+        <Description>
+           The AttributeDefinition object for this attribute.
+        </Description>
+      </Argument>
+      <Argument name="link">
+        <Description>
+           The Link object from the Identity, if this is an application
+           mapping rule.  For global mapping rules this will be void.
+        </Description>
+      </Argument>
+      <Argument name="attributeSource">
+        <Description>
+          The AttributeSource object.
+        </Description>
+      </Argument>
+      <Argument name="oldValue">
+        <Description>
+          The original value of the application account attribute.
+        </Description>
+      </Argument>
+    </Inputs>
+    <Returns>
+      <Argument name="attributeValue">
+        <Description>
+          The value of the attribute that should be populated.
+          The rule should return this value.
+        </Description>
+      </Argument>
+    </Returns>
+  </Signature>
+  <Source>
+import sailpoint.api.SailPointContext;  
+import sailpoint.object.Identity;
+import sailpoint.object.*; 
+import java.util.*;  
+import java.io;
+import sailpoint.object.Link;
+import sailpoint.object.Attributes;
+import org.apache.log4j.Logger;
+import org.apache.log4j.Level;
+  
+
+  Logger log = Logger.getLogger("sailpoint.services.bshdemo");
+  log.error("Manager map logger");
+  
+  String mnagerName= "";
+  String mnagerNam1= "";
+  String strDispName= "";
+  String strDispName= "";
+  String strEmpID= "1a";
+  String strIdentityEmpID="";
+  String strApplication = "";
+  List list = new ArrayList();
+  List list1 = new ArrayList();
+  
+  String ssss="";
+
+  List listOfIdentities =  context.getObjects(Identity.class);
+  for(Identity id : listOfIdentities)
+  {  
+    list.add(id.getLinks()); 
+    for(Link link: list)
+    {
+     return link.getApplicationName();
+    }
+    
+  }
+    
+ 
+    strIdentityEmpID = id.getAttribute("EmployeeID");
+    if(list!=null)
+    {
+         ssss="\n"+ssss+list.getApplicationName();
+    }
+    
+    //System.out.println(strIdentityEmpID);
+    if(strIdentityEmpID != null)
+    {
+       mnagerName = id.getAttribute("manager");
+       mnagerNam1 = mnagerNam1+"Employee :: "+id.getName()+" Manager is -  "+mnagerName+"\n";       
+    }
+  }  
+  
+   List listOfAllications =  context.getObjects(Application.class);
+
+   for(Application Apid : listOfAllications)
+  {  
+    //System.out.println("Inside for");   
+    strApplication = strApplication+"\n"+Apid.getName();
+    
+  }  
+  
+
+  return ssss;
+  </Source>
+</Rule>

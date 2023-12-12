@@ -1,0 +1,179 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE Rule PUBLIC "sailpoint.dtd" "sailpoint.dtd">
+<Rule created="1683085586510" id="c0a81db387db1b358187dfb7f04e01ec" language="beanshell" modified="1695293360237" name="ActiveDirectory-AfterProvisioning" type="AfterProvisioning">
+  <Description>A reference implementation of the AfterProvisioning rule. Rules of this type are called after provisioning has completed by the connector. The ConnectorProxy calls the rule for any application found in the provisioning plan that has a configured 'afterProvisioningRule'
+attribute. This particular example demonstrates how we can insert post-provisioning logic to handle an AD account rename or move. This updates the IdentityIQ link to reflect the changes made to the ActiveDirectory account.</Description>
+  <Signature>
+    <Inputs>
+      <Argument name="log">
+        <Description>
+          The log object associated with the SailPointContext.
+        </Description>
+      </Argument>
+      <Argument name="context">
+        <Description>
+          A sailpoint.api.SailPointContext object that can be used to query the database if necessary.
+        </Description>
+      </Argument>
+      <Argument name="plan">
+        <Description>
+          The ProvisioningPlan object on its way to the Connector.
+        </Description>
+      </Argument>
+      <Argument name="application">
+        <Description>
+          The application object that references this before/after script.
+        </Description>
+      </Argument>
+      <Argument name="result">
+        <Description>
+          The ProvisioningResult object returned by the connectors provision method. This can be null and in many cases the connector will  not return a result and instead will annotate the plan's ProvisioningResult either at the plan or account level.        
+        </Description>
+      </Argument>
+    </Inputs>
+  </Signature>
+  <Source>import sailpoint.object.ProvisioningResult;
+     import sailpoint.object.ProvisioningPlan;
+     import sailpoint.object.ProvisioningPlan.AccountRequest;
+     import sailpoint.object.ProvisioningPlan.AttributeRequest;
+     import sailpoint.object.ProvisioningPlan.AccountRequest.Operation;
+     import sailpoint.object.Application;
+     import sailpoint.object.ResourceObject;
+     import sailpoint.connector.Connector;
+     import sailpoint.connector.DefaultConnectorServices;
+     import sailpoint.connector.ADLDAPConnector;
+
+     serilog = org.apache.commons.logging.LogFactory.getLog("SERI.Rule.AfterProvisioning");
+
+     // The 'plan' argument is passed unconditionally
+     serilog.debug("AfterProvisioning Rule - incoming plan:\n" + plan.toXml());
+
+     // The 'result' argument may not be passed at all, so check for void
+     if ((result != void) &amp;&amp; (null != result)) {
+        serilog.debug("result:\n" + result.toXml());
+     }
+     
+     // Check for AD move operation by looking for special AttributeRequest with "AC_NewParent" or "AC_NewName"
+     //
+     List accounts = plan.getAccountRequests(application.getName());
+     if (null != accounts) {
+        for (AccountRequest account : accounts) {
+
+          if (account.getOperation().equals(ProvisioningPlan.AccountRequest.Operation.Modify)) {
+            
+           AttributeRequest ar = account.getAttributeRequest("AC_NewParent");
+           if (null == ar) {
+              ar = account.getAttributeRequest("AC_NewName");
+           }
+           
+           if (null == ar) {
+                serilog.debug("Not a rename or move. There might be a connector error in account request . Bypassing AfterProvisioning logic.");  
+                break; 
+           }
+           
+           // If there was failure in connector, bypass everything...
+           //
+           ProvisioningResult result = account.getResult();
+           if (result.getStatus().equals(ProvisioningResult.STATUS_FAILED)) {
+              return;
+           } 
+            //STATUS_COMMITTED
+            //STATUS_QUEUED
+            //STATUS_RETRY
+            //STATUS_FAILED
+           
+           // Move _and_ rename in the same plan?  Nah.
+           //
+           if (ar.getName().equals("AC_NewParent")) {
+               serilog.debug("AC_NewParent AttributeRequest");
+               String oldDN = account.getNativeIdentity();
+               serilog.debug("oldDN is " + oldDN);
+                
+               // Pull the new OU from the AttributeRequest and build a new DN
+               //
+               String newOU = (String) ar.getValue();
+               String cn = oldDN.substring(0,oldDN.indexOf(","));
+               String newDN = cn + "," + newOU;
+               serilog.debug("newDN is " + newDN);
+                 
+               // Let's call the connector to get the newly moved object
+               //
+               Application app = context.getObjectByName(Application.class,application.getName());
+               Connector conn = new ADLDAPConnector(app);
+               conn.setConnectorServices(new DefaultConnectorServices());
+               Map map = new HashMap(); 
+               ResourceObject ro = conn.getObject("account",newDN,map);
+               serilog.debug("getObject returned:\n" + ro.toXml());
+
+               // Stuff the resource object in the place where the Provisioner will find it
+               //
+               ProvisioningResult result = account.getResult();
+               result.setObject(ro);
+               account.setResult(result);
+
+               // Scramble the native identity to force a link creation
+               account.setNativeIdentity("#DOES_NOT_EXIST#");
+
+               // Need to clean out the old link...
+               //
+               AccountRequest delete = new AccountRequest();
+               delete.setApplication(application.getName());
+               delete.setNativeIdentity(oldDN);
+               delete.setOperation(Operation.Delete);
+                 
+               ProvisioningResult pr = new ProvisioningResult();
+               pr.setStatus(ProvisioningResult.STATUS_COMMITTED);
+               delete.setResult(pr);
+               plan.add(delete);
+               break;
+           }
+           
+           if (ar.getName().equals("AC_NewName")) {
+               serilog.debug("AC_NewName AttributeRequest");
+               String oldDN = account.getNativeIdentity();
+               serilog.debug("oldDN is " + oldDN);
+                
+               // Pull the new OU from the AttributeRequest and build a new DN
+               //
+               String newOU = oldDN.substring(oldDN.indexOf(",") + 1,oldDN.length());
+               String cn = ar.getValue();
+               
+               String newDN = cn + "," + newOU;
+               serilog.debug("newDN is " + newDN);
+                 
+               // Let's call the connector to get the newly moved object
+               //
+               Application app = context.getObjectByName(Application.class,application.getName());
+               Connector conn = new ADLDAPConnector(app);
+               conn.setConnectorServices(new DefaultConnectorServices());
+               Map map = new HashMap(); 
+               ResourceObject ro = conn.getObject("account",newDN,map);
+               serilog.debug("getObject returned:\n" + ro.toXml());
+
+               // Stuff the resource object in the place where the Provisioner will find it
+               //
+               ProvisioningResult result = account.getResult();
+               result.setObject(ro);
+               account.setResult(result);
+
+               // Scramble the native identity to force a link creation
+               account.setNativeIdentity("#DOES_NOT_EXIST#");
+
+               // Need to clean out the old link...
+               //
+               AccountRequest delete = new AccountRequest();
+               delete.setApplication(application.getName());
+               delete.setNativeIdentity(oldDN);
+               delete.setOperation(Operation.Delete);
+                 
+               ProvisioningResult pr = new ProvisioningResult();
+               pr.setStatus(ProvisioningResult.STATUS_COMMITTED);
+               delete.setResult(pr);
+               plan.add(delete);
+               break;
+           }
+        }
+     } 
+     }  
+     serilog.debug("Returning plan:\n" + plan.toXml());</Source>
+</Rule>

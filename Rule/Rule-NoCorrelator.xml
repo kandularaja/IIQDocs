@@ -1,0 +1,3 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE Rule PUBLIC "sailpoint.dtd" "sailpoint.dtd">
+<Rule created="1680670471396" id="c0a81db3874f140081874fc434e4011d" language="beanshell" modified="1681117368445" name="No Correlator" type="Correlation"/>

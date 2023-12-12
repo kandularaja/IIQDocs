@@ -1,0 +1,106 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE Rule PUBLIC "sailpoint.dtd" "sailpoint.dtd">
+<Rule created="1655803592163" id="c0a80c01817f175d81818595bde203d0" language="beanshell" modified="1682400026796" name="R1-Get Reportess For Manager" type="Validation">
+  <Source>  
+  import sailpoint.object.*;
+  import sailpoint.api.*;
+  import sailpoint.api.SailpointContext;  
+  import sailpoint.object.Identity;  
+  import sailpoint.object.Filter;
+  import sailpoint.object.QueryOptions; 
+  import sailpoint.object.Link; 
+  import sailpoint.object.ProvisioningPlan;
+  import sailpoint.object.ProvisioningPlan.AccountRequest;
+  import sailpoint.object.ProvisioningPlan.AttributeRequest;
+  
+  import oracle.jdbc.OracleTypes;
+  
+  import java.util.*;  
+  import java.io;
+  import java.sql.ResultSet;
+  import java.sql.Statement;
+  import java.sql.Connection;
+  import java.sql.DriverManager;
+  import java.sql.Types;
+  import java.sql.PreparedStatement;
+  import java.sql.SQLException;
+  import java.sql.Date;
+  
+  
+  List list = new ArrayList();
+  List applist = new ArrayList();
+  List entllist = new ArrayList();  
+  List identityObject =  context.getObjects(Identity.class);
+  List appObject =  context.getObjects(Application.class);
+  List entlObj =  context.getObjects(IdentityEntitlement.class);
+  String  strDispName="";
+  String  strDispYName="";  
+  for(Identity id : identityObject)
+  {  
+   list.add(id.getName());
+   strDispName= strDispName+"\n Display Name:: "+ id.getDisplayName();
+   strDispYName= strDispYName+"\n Email:: "+ id.getFirstname();
+  }  
+  for(Application apname : appObject)
+  {
+   applist.add( apname.getName());
+  }
+  for(IdentityEntitlement entname : entlObj)
+  {
+   entllist.add( entname.getName());
+  }      
+  System.out.println("**********"+list);
+  System.out.println("**********"+applist);
+  System.out.println("**********"+entllist);  
+  
+  QueryOptions queryOption = new QueryOptions();
+  queryOption.addFilter(Filter.eq("name","James Smith"));
+  
+  Iterator identityIterator = context.search(Identity.class, queryOption);   
+  while ( identityIterator.hasNext() ) {  
+   System.out.println("identityIterator : in while " );
+    Identity id = (Identity) identityIterator.next();  
+   System.out.println("id : " + id);
+   System.out.println("Name : "+id.getName());  
+   System.out.println("Attributes : "+id.getAttributes()); 
+   System.out.println("Role Assignments : "+id.getRoleAssignments());
+   System.out.println("Links : "+id.getLinks());  
+}  
+  // QueryOptions appqueryOption = new QueryOptions();
+  
+    // appqueryOption.addFilter(Filter.eq("application.name","Delimited_HR_Application"));
+     //Iterator ApplicationIterator = context.search(Link.class, appqueryOption);     
+  
+ // while ( ApplicationIterator.hasNext() ) {  
+  // System.out.println("ApplicationIterator : in while " );
+  // Object[] row = (Object[]) ApplicationIterator.next();
+
+    // String id1 = row[1];
+  //  System.out.println("Application : "+id1);  
+//}   
+  // Return the selected identity
+  //Connecting to My sql 
+  try{
+       String strPeopleqry= "SELECT *  FROM [Test].[dbo].[People]";
+       String strGroupqry= "SELECT *  FROM [Test].[dbo].[Group]";
+       PreparedStatement statement = connection.prepareStatement(strPeopleqry);
+       ResultSet rs = statement.executeQuery(strPeopleqry);
+       while (rs.next())
+       {
+          System.out.println(rs.getString(1));
+       }
+  } catch (Exception e) {
+                               System.out.println("JDBCApplication Create Error e: " +e.getMessage());    
+    }finally { 
+
+      try{ 
+         if (connection != null) 
+     connection.close(); 
+      }catch (SQLException e) { 
+         e.printStackTrace(); 
+              } 
+      }      
+  
+return list;
+</Source>
+</Rule>

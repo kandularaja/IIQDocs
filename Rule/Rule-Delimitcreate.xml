@@ -1,0 +1,186 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE Rule PUBLIC "sailpoint.dtd" "sailpoint.dtd">
+<Rule created="1684147817593" id="c0a81db387fb113b81881f084c7914ca" language="beanshell" modified="1684992188022" name="DelimitCreate">
+  <Signature returnType="ProvisioningResult">
+    <Inputs>
+      <Argument name="plan">
+        <Description> The Provisioning Plan </Description>
+      </Argument>
+    </Inputs>
+  </Signature>
+  <Source>
+   import java.io.BufferedWriter;
+  import java.io.File;
+  import java.io.FileWriter;
+  import java.util.ArrayList;
+  import java.util.List;
+
+
+  import sailpoint.connector.Connector;
+  import sailpoint.object.Application;
+  import sailpoint.object.ProvisioningPlan;
+  import sailpoint.object.ProvisioningPlan.AccountRequest;
+  import sailpoint.object.ProvisioningPlan.AttributeRequest;
+
+  import sailpoint.object.ProvisioningPlan.AccountRequest.Operation;
+  import sailpoint.object.ProvisioningResult;
+  import sailpoint.object.Schema;
+  import sailpoint.tools.Util;
+
+  System.out.println(" ****************Start Rule-IC-DelimitCreate**********************");
+
+  ProvisioningResult pr = new ProvisioningResult();
+
+
+  static  writeLine(String filepath,String dataToWrite, String headerStr) throws Exception
+  {
+    System.out.println("dataToWrite : "+dataToWrite);
+    System.out.println("filepath : "+filepath);
+    System.out.println("headerStr : "+headerStr);
+    File file = new File(filepath);
+    System.out.println("*****==================="+file);
+    System.out.println("  file.exists() : "+file.exists());
+    if(!file.exists()){
+
+      StringBuilder sb = new StringBuilder();
+      sb.append(headerStr);
+      sb.append("\n").append(dataToWrite);
+      Util.writeFile(filepath, sb.toString());
+
+      return;
+    }
+    System.out.println("===================");
+    FileWriter fw =  new FileWriter(file,true);
+    BufferedWriter bw = new BufferedWriter(fw);
+
+    bw.newLine();
+    bw.write(dataToWrite);
+    bw.close();
+    fw.close();
+    System.out.println("*****Line has been written successfully!!");
+    System.out.println("***** End - writeLine()");
+  }
+
+
+
+
+  String filePath = configMap.get("filePath");
+
+  List acctReqList = plan.getAccountRequests();
+  System.out.println(" acctReqList   : "+acctReqList);
+
+  try{
+    if(Util.nullSafeSize(acctReqList) > 0){
+
+      for(AccountRequest acctReq : acctReqList){
+        System.out.println(" acctReq   : "+acctReq);
+
+        Operation operation = acctReq.getOperation();
+        System.out.println(" operation  : "+operation);
+        String fileName = "test_"+operation.toString();
+        System.out.println(" fileName  : "+fileName);
+        filePath = filePath+"/"+fileName+".csv";
+        System.out.println(" filePath  : "+filePath);
+        StringBuilder sb = new StringBuilder();
+        String applicationName = acctReq.getApplicationName();
+        Application app =    context.getObjectByName(Application.class,applicationName);
+        Schema schema = app.getSchema(Connector.TYPE_ACCOUNT);
+
+
+        String identityAttributeName = schema.getIdentityAttribute();
+        System.out.println(" identityAttributeName  : "+ identityAttributeName);
+        List schemAttr = schema.getAttributeNames();
+        System.out.println(" schemAttr  : "+ schemAttr);
+        String header =   Util.listToCsv((List) schemAttr);
+        System.out.println("header  : "+ header);
+        String replaceAll = header.replaceAll(", ", ",")+",Operation";
+        System.out.println(" replaceAll  : "+ replaceAll);
+        sb.append(replaceAll);
+
+
+        if(AccountRequest.Operation.Create.equals(operation)){
+          List valList = new ArrayList();
+          for(String attrName : schemAttr){
+            //if(!attrName.equals("GroupID") || !attrName.equals("DepartmentID")){
+              System.out.println(" attrName  : "+ attrName);
+
+
+              if(identityAttributeName.equalsIgnoreCase(attrName)){
+                valList.add(acctReq.getNativeIdentity());
+                continue;
+              }
+
+              List listValue = new ArrayList();
+              List attrReqsLists = acctReq.getAttributeRequests(attrName);
+              System.out.println(" attrReqsLists  : "+ attrReqsLists);
+              Object  valObj = null;
+              if(null != attrReqsLists @and attrReqsLists.size() == 1){
+                valObj = attrReqsLists.get(0).getValue();
+              }
+              else if(attrReqsLists != null &amp;&amp; attrReqsLists.size() > 1){
+                System.out.println(" attrReqLists 2nd time  : "+ attrReqsLists);
+                List listValues = new ArrayList();              
+                for(AttributeRequest  attrReqList : attrReqsLists){
+                  System.out.println(" attrReqList  : "+ attrReqList);
+
+                  String val = (String)attrReqList.getValue();
+
+                  listValues.add(val);
+                }
+                valObj = listValues;
+                System.out.println(" valObj1  : "+ valObj);
+              }
+            else valObj="";
+
+
+              System.out.println(" valObj2  : "+ valObj);
+              if(valObj instanceof String){
+                System.out.println(" valObj if block : "+ valObj);
+                valList.add(valObj);
+              }else{
+
+                List muliVals = (List) valObj;
+                System.out.println(" muliVals else block : "+ muliVals);
+                // String finalVal = "\""+Util.listToCsv(muliVals).replaceAll(", ", ",")+"\"";
+                String finalVal = Util.listToCsv(muliVals).replaceAll(", ", ",");
+                System.out.println(" finalVal else block : "+ finalVal);
+                valList.add(finalVal);
+                System.out.println(" INSIDEvalList  : "+ valList);
+              }
+            }
+            System.out.println(" valList  : "+ valList);
+            valList.add("Create");
+            String record = Util.listToCsv(valList).replaceAll(", ", ",");
+            System.out.println("record  : "+ record);
+            writeLine(filePath, record, replaceAll);
+        }else if(AccountRequest.Operation.Modify.equals(operation)){
+
+
+        }
+        else if(AccountRequest.Operation.Delete.equals(operation)){
+
+        }
+        else if(AccountRequest.Operation.Enable.equals(operation)){
+
+        }
+        else if(AccountRequest.Operation.Disable.equals(operation)){
+
+        }
+
+      }
+    }
+
+  }catch(Exception e){
+    pr.setStatus(ProvisioningResult.STATUS_FAILED);
+    return pr;
+  }
+
+  System.out.println(" *******************End Rule-IC-DelimitCreate************************ ");
+
+  pr.setStatus(ProvisioningResult.STATUS_COMMITTED);
+  return pr;
+
+
+
+  </Source>
+</Rule>

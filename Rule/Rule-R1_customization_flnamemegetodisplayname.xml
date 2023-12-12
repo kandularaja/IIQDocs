@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE Rule PUBLIC "sailpoint.dtd" "sailpoint.dtd">
+<Rule created="1658217363534" id="c0a80c018215103481821574f84d0065" language="beanshell" modified="1681117374779" name="R1_Customization_FLNAmeMegeToDisplayname" type="ResourceObjectCustomization">
+  <Description>This rule is configured on the application and is called after the connector has build a ResourceObject from the native application data.
+
+Initially designed for non-rule based connectors to add SPPrivileged flag to an object, but could be used to do any transformations.</Description>
+  <Signature returnType="ResourceObject">
+    <Inputs>
+      <Argument name="log">
+        <Description>
+          The log object associated with the SailPointContext.
+        </Description>
+      </Argument>
+      <Argument name="context">
+        <Description>
+          A sailpoint.api.SailPointContext object that can be used to query the database if necessary.
+        </Description>
+      </Argument>
+      <Argument name="object">
+        <Description>
+          The ResourceObject built by the connector.
+        </Description>
+      </Argument>
+      <Argument name="application">
+        <Description>
+          Application that references the connector.
+        </Description>
+      </Argument>
+      <Argument name="connector">
+        <Description>
+          The connector object.
+        </Description>
+      </Argument>
+      <Argument name="state">
+        <Description>
+          A Map containing state information.
+        </Description>
+      </Argument>
+    </Inputs>
+    <Returns>
+      <Argument name="resourceObject">
+        <Description>
+          The updated resource object.
+        </Description>
+      </Argument>
+    </Returns>
+  </Signature>
+  <Source>import java.io.* ;
+import java.util.*;
+import java.io.BufferedReader;  
+import java.io.FileReader;  
+import java.io.IOException; 
+import sailpoint.object.Identity;
+System.out.println("You are in Customization Rule");
+String fn=object.get("GivenName");
+//System.out.println("First Name:: "+fn);
+String ln=object.get("Surname");
+//System.out.println("Last Name:: "+ln);
+String dispName = fn+" "+ln;
+//System.out.println("Display Name :: "+dispName);
+object.put("DisplayName",dispName);
+String strManagerName = "";
+  
+List identityObject =  context.getObjects(Identity.class);
+  
+//System.out.println("Outside for");
+/*for(Identity id : identityObject)
+{   
+  if(id.getAttribute("EmployeeID"=="1a")
+  {
+     System.out.println("Inside for");
+     System.out.println(id.getAttribute("EmployeeID"));
+     System.out.println(id.getAttribute("manager"));
+     System.out.println("Object ManagerID :: "+object.get("manager"));
+
+     System.out.println("EmployeeID :: "+id.getAttribute("EmployeeID"));
+     System.out.println("ManagerID :: "+id.getAttribute("manager"));
+     System.out.println("Object ManagerID :: "+object.getAttribute("manager"));
+      if(id.getAttribute("EmployeeID") == object.getAttribute("manager"))
+      {
+      System.out.println("Inside if");
+      strManagerName = id.getAttribute("Name");
+      }  
+  }
+ }  
+object.put("ManagerName",strManagerName );
+*/
+return object;</Source>
+</Rule>

@@ -1,0 +1,209 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE Rule PUBLIC "sailpoint.dtd" "sailpoint.dtd">
+<Rule created="1681455966093" id="c0a81db3877a1fef81877e95e78d014d" language="beanshell" modified="1682499833638" name="CR_AccountMoveToAD" type="IdentityAttribute">
+  <Description>
+    This rule is created to get custom objects usage and return values(email id) and to get mail id from sailpoint IIQ with custom object name.
+  </Description>
+  <Source>
+import org.apache.log4j.Logger;
+import org.apache.log4j.Level;
+import org.apache.commons.logging.Log;
+import org.apache.bsf.BSFException;
+import java.util.*;
+import sailpoint.object.ProvisioningPlan;
+import sailpoint.object.*;
+import sailpoint.api.*;
+import sailpoint.tools.GeneralException;
+import sailpoint.tools.Message;
+import sailpoint.tools.Util;
+
+ 
+
+// Note: only force this to debug when editing.  Otherwise let log4j set it.
+
+Logger log = Logger.getLogger("sailpoint.services.DemonstrateMovingLink");
+
+log.setLevel(Level.DEBUG); // TODO: Turn this off or remove this line when checking in.
+
+ 
+
+// We need targetId, sourceId, and linkToMove loaded at the beginning.
+
+// We will spend some lines making certain those are loaded cleanly and sanely.
+ 
+String srcIdName = "Allen Burton";
+
+String tgtIdName = "Viru Sehwag";    
+
+String appName = "AD-Application";
+
+String acctToMove = "CN=Allen Burton,OU=People,OU=Demo,DC=Eshiam,DC=com"; // The name/nativeIdentity of the Account getting moved.
+
+ 
+
+Identity srcId = context.getObjectByName(Identity.class, srcIdName);
+
+if (null == srcId) {
+
+   String eMsg = "Could not find source Identity with name: " + srcIdName;
+
+   log.error(eMsg);
+
+   return eMsg;
+
+}
+
+ 
+
+Identity tgtId = context.getObjectByName(Identity.class, tgtIdName);
+
+if (null == tgtId) {
+
+   String eMsg = "Could not find target Identity with name: " + tgtIdName;
+
+   log.error(eMsg);
+
+   return eMsg;
+
+}
+
+ 
+
+Application appObj = context.getObjectByName(Application.class, appName);
+
+if (null == appObj) {
+
+   String eMsg = "Could not find Application with name: " + appName;
+
+   log.error(eMsg);
+
+   return eMsg;
+
+}
+
+ 
+
+// Helper library that is useful for loading specific Links from the datbase.
+
+IdentityService ids = new IdentityService(context);
+
+Link linkToMove = ids.getLink(srcId, appObj, null, acctToMove);
+  
+  int scount= ids.countLinks(srcId, appObj);
+  int dcount= ids.countLinks(tgtId, appObj);
+  int slcount= ids.countLinks(srcId);
+  int dlcount= ids.countLinks(tgtId);
+  //return context.getObjects(Application.class);
+  boolean flag = ids.hasAccounts(srcId,context.getObjects(Application.class));
+ Identity idsid = ids.getIdentityFromIdOrName(null,srcIdName);
+  String dispname = ids.resolveIdentityDisplayName(srcIdName);
+  //return dispname;
+//)
+  
+  
+ // return dlcount;
+
+if (null == linkToMove) {
+
+   String eMsg = "Could not find Link/Account named [" + acctToMove + "] from Application name: " + appName + " under Identity:" + srcId.getName();
+
+   log.error(eMsg);
+
+   return eMsg;  
+
+}
+ 
+
+// We now have the srcId, tgtId, and linkToMove all verified and loaded. 
+
+// The correct way to have IdentityIQ "move" an account from one Identity to
+
+// another is to submit a specially crafted ProvisioningPlan to request the Link
+
+// be moved.
+
+// The code for this specially crafted provisioning plan follows:
+ 
+
+ProvisioningPlan plan = new ProvisioningPlan();
+
+plan.setIdentity(tgtId);
+
+ 
+
+// Metadata for assignments and logging. 
+
+// You can specify your own requester as necessary:
+
+plan.addRequester(context.getObjectByName(Identity.class, "spadmin"));
+
+// You can also set your own Source, this sets "Rule" but "Batch" might be valid as well.
+
+plan.setSource(sailpoint.object.Source.Rule); 
+
+ 
+
+ProvisioningPlan.AccountRequest account = new ProvisioningPlan.AccountRequest();
+
+account.setOperation(ProvisioningPlan.AccountRequest.Operation.Modify);
+
+account.setApplication(ProvisioningPlan.APP_IIQ);  // Modify only IdentityIQ.
+
+plan.add(account);
+
+       
+
+ProvisioningPlan.AttributeRequest req = new ProvisioningPlan.AttributeRequest();
+
+req.setName(ProvisioningPlan.ATT_IIQ_LINKS);  // Magic value to alter IdentityIQ links.
+
+req.setOperation(ProvisioningPlan.Operation.Add);
+
+req.put(ProvisioningPlan.ARG_SOURCE_IDENTITY, linkToMove.getIdentity().getName());
+
+req.setValue(linkToMove.getId());
+
+ 
+
+// Formatted as: appName: acctName (identityName)
+
+String reqDisplayVal =
+
+  linkToMove.getApplicationName() + ": " +
+
+   linkToMove.getNativeIdentity() + "(" +
+
+   linkToMove.getIdentity().getName() + ")";  
+
+req.setDisplayValue(reqDisplayVal);
+
+ 
+
+account.add(req);
+
+ 
+
+log.debug("Plan to move the account: " + plan.toXml());
+
+ 
+
+// Fire off the plan to the Provisioner to execute:
+
+Provisioner provisioner = new Provisioner(context);
+
+provisioner.setAssigner("spadmin");  // String of Identity making the change.
+
+provisioner.compile(plan);
+
+provisioner.execute();
+
+ 
+
+log.debug("Account moved!");
+
+ 
+
+return "Success";
+  
+  </Source>
+</Rule>

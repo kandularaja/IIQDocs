@@ -1,0 +1,652 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE Rule PUBLIC "sailpoint.dtd" "sailpoint.dtd">
+<Rule created="1681706801854" id="c0a81db3877a1fef81878d895abe0394" language="beanshell" modified="1682334415426" name="Rule_ENTITLEMENT_Import_Roles">
+  <Description>
+    This rule is used to create the IT, Organization, Business and Application Roles.
+  </Description>
+  <Signature>
+    <Inputs>
+      <Argument name="File_path_Role_Definition" type="string">
+        <Description>
+          File path for creating roles.
+        </Description>
+      </Argument>
+      <Argument name="File_path_Map_Entitlements" type="string">
+        <Description>
+          File path for mapping entitlements to IT role.
+        </Description>
+      </Argument>
+      <Argument name="ReadOnlyMode" type="boolean">
+        <Prompt>Enable this option for Read Only Mode</Prompt>
+      </Argument>
+    </Inputs>
+  </Signature>
+  <Source>
+  
+
+  import java.io.File;
+  import java.util.List;
+  import java.util.ArrayList;
+  import java.util.HashMap;
+  import java.util.Map;
+  import sailpoint.object.Application;
+  import sailpoint.object.ManagedAttribute;
+  import sailpoint.object.Bundle;
+  import sailpoint.object.Identity;
+  import sailpoint.object.Profile;
+  import sailpoint.object.Filter;
+  import sailpoint.tools.RFC4180LineParser;
+  import sailpoint.tools.RFC4180LineIterator;
+  import java.util.Arrays;
+  import org.apache.commons.logging.LogFactory;
+  import org.apache.commons.logging.Log;
+  import org.apache.log4j.Logger;
+  import org.apache.log4j.Level;
+  import sailpoint.object.TaskResult;
+  import sailpoint.tools.Message;
+  import sailpoint.tools.Message.Type;
+  import java.lang.StringBuilder;
+  import org.apache.commons.lang3.StringUtils;
+  import java.lang.StringBuilder;
+  import sailpoint.tools.GeneralException;
+  import sailpoint.tools.Util;
+  import org.apache.commons.lang3.StringEscapeUtils;
+  import java.util.Collections;
+  import sailpoint.api.Describer;
+
+  /**This method will group the entitlements for individual role in a Map
+   * @param entitlementObject
+   * @return
+   */
+  public HashMap entitlementObjectMap(HashMap entitlementObject)
+  {
+    Map entitlementMap = new HashMap();
+    entitlementMap.put("Entitlement_AttributeName",entitlementObject.get("Entitlement_AttributeName"));
+    entitlementMap.put("Entitlement_AttributeValue",entitlementObject.get("Entitlement_AttributeValue"));
+    entitlementMap.put("Application_Name",entitlementObject.get("Application_Name"));
+    return entitlementMap;
+  }
+
+
+  /**This method will group the IT Role Name with the corresponding list of entitlements in a map.
+   * @param entitlementsMappingMasterList
+   * @return
+   */
+  public Map buildIndividualRoleEntitlements(List entitlementsMappingMasterList)
+  {
+    Map roleMap = new HashMap();
+    try
+    {
+      for(Object entry : Util.safeIterable(entitlementsMappingMasterList))
+      {
+        HashMap entitlementObject = (HashMap) entry;
+        String roleName = entitlementObject.get("IT_Role_Name");
+        if(roleMap.containsKey(roleName)) 
+        {
+          String applicationName = entitlementObject.get("Application_Name");
+          Map applicationMap = roleMap.get(roleName);
+          if(applicationMap.containsKey(applicationName)) 
+          {
+            Map attributeMap = applicationMap.get(applicationName);
+            String attriubteName = entitlementObject.get("Entitlement_AttributeName");
+            if(attributeMap.containsKey(attriubteName)) 
+            {
+              List attributeList = attributeMap.get(attriubteName);
+              Map entitlementMap = new HashMap();
+              entitlementMap = entitlementObjectMap(entitlementObject);
+              attributeList.add(entitlementMap);
+              attributeMap.put(attriubteName,attributeList);
+            } 
+            else 
+            {
+              List attributeList = new ArrayList();
+              Map entitlementMap = new HashMap();
+              entitlementMap = entitlementObjectMap(entitlementObject);
+              attributeList.add(entitlementMap);
+              attributeMap.put(attriubteName,attributeList);
+            }
+            applicationMap.put(applicationName,attributeMap);
+          } 
+          else 
+          {
+            String applicationName = entitlementObject.get("Application_Name");
+            String attriubteName = entitlementObject.get("Entitlement_AttributeName");
+            Map attributeMap = new HashMap();
+            List attributeList = new ArrayList();
+            Map entitlementMap = new HashMap();
+            entitlementMap = entitlementObjectMap(entitlementObject);
+            attributeList.add(entitlementMap);
+            attributeMap.put(attriubteName,attributeList);
+            applicationMap.put(applicationName,attributeMap);
+          }
+          roleMap.put(roleName,applicationMap);
+        }  
+        else 
+        {
+          String applicationName = entitlementObject.get("Application_Name");
+          Map applicationMap = new HashMap();
+          String attriubteName = entitlementObject.get("Entitlement_AttributeName");
+          Map attributeMap = new HashMap();
+          List attributeList = new ArrayList();
+          Map entitlementMap = new HashMap();
+          entitlementMap = entitlementObjectMap(entitlementObject);
+          attributeList.add(entitlementMap);
+          attributeMap.put(attriubteName,attributeList);
+          applicationMap.put(applicationName,attributeMap);
+          roleMap.put(roleName,applicationMap);
+        }
+      }
+    }
+    catch (Exception e)
+    {
+      logger.error("Exception occurred while grouping the IT roles with Entitlements "+e.getMessage());
+      taskResult.addMessage(new Message(Message.Type.Warn, "Exception occurred while grouping the IT roles with Entitlements "+e,null));
+    }
+    return roleMap;
+  }
+
+
+  /**This method will check whether the entitlement are present in entitlement catalog.
+   * @param appName
+   * @param attrName
+   * @param valueList
+   * @return
+   */
+  public boolean checkManagedAttributes (String appName, String attrName ,List valueList)
+  {
+    int counter = 0;
+    for (Object obj : valueList)
+    {
+      String val = (String) obj.replace("\\\\","\\");
+      Filter filter = Filter.and(Filter.eq("application.name",appName),Filter.eq("attribute",attrName),Filter.eq("value",val));
+      ManagedAttribute manageAttr =  context.getUniqueObject(ManagedAttribute.class,filter);
+      if (manageAttr!=null)
+      {
+        counter++;
+      }
+    }
+    if (counter==valueList.size())
+    {
+      return true;
+    }
+    else
+    {
+      taskResult.addMessage(new Message(Message.Type.Warn, "Entitlements " +valueList+ " is missing in Entitlement Catalog for "+attrName+" attribute",null));
+      return false;
+    }
+  }
+
+  /**This method will create the filter for profiles.
+   * @param valueList
+   * @param attrName
+   * @return
+   */
+  public Filter createFilter(List valueList, String attrName)
+  {
+    String groupVal= null;
+    String tmpGroupVal= null;
+    StringBuilder filterString = new StringBuilder(attrName);
+    tmpGroupVal = StringUtils.join(valueList, "\", \"");// Join with ", "
+    groupVal = StringUtils.wrap(tmpGroupVal, "\""); // wrap with ""
+    filterString.append(".containsAll({").append(groupVal).append("})");
+    Filter filter = Filter.compile(filterString.toString());
+    return filter;
+  }
+
+  /**This method will create the profiles for the IT Role.
+   * @param itRoleName
+   * @param applicationName
+   * @param attrName
+   * @param valueList
+   */
+  public void createProfiles(String itRoleName, String applicationName, String attrName, List valueList)
+  {
+    try
+    {
+      Filter filter = null;
+      Application appObj = context.getObject(Application.class,applicationName);
+
+      if (appObj==null)
+      {
+        throw new GeneralException(String.format("Application Object [%s] is Empty or null",applicationName));       
+      }
+
+      Bundle roleObj = context.getObject(Bundle.class, itRoleName);
+
+      if (roleObj==null)
+      {
+        throw new GeneralException(String.format("IT Role Object [%s] is Empty or null",itRoleName));
+
+      }
+
+      if ((!Util.isEmpty(valueList)) &amp;&amp; Util.isNotNullOrEmpty(attrName))
+      {
+        filter = createFilter (valueList, attrName); 
+        Profile profile = new Profile();
+        profile.setApplication(appObj);
+        profile.addConstraint(filter);
+        roleObj.add(profile);
+        context.saveObject(roleObj);
+        context.commitTransaction();
+        context.decache(roleObj);
+      }
+      else
+      {
+        throw new GeneralException(String.format("Entitlement Attribute Name or Entitlement Attribute value is null or empty for [%s] role",itRoleName));
+      }
+    }
+    catch (Exception e)
+    {
+      logger.error("In createProfiles method "+e);
+      taskResult.addMessage(new Message(Message.Type.Error, "In createProfiles method "+e,null));
+    } 
+  }
+
+  /** This method will create the IT and Business role.
+   * @param roleHash
+   */
+  public void buildRole (HashMap roleHash) 
+  {
+    try
+    {
+      String roleName  = (String) roleHash.get("Role_Name");
+      String roleDisplayName  = (String) roleHash.get("Role_Display_Name");
+      String roleType  = (String) roleHash.get("Role_Type");
+      String roleDesc  = (String) roleHash.get("Role_Description");
+      String roleOwner = (String) roleHash.get("Role_Owner");
+      String appName   = (String) roleHash.get("Application_Name");
+      String requiredRoles  = (String) roleHash.get("Required_Roles");
+      String inheritedRoles  = (String) roleHash.get("Inherited_Roles");
+      String approvalSchemeValue  = (String) roleHash.get("Approval_Scheme");
+      Set &lt;String> validRoletypes = new HashSet (Arrays.asList("it","business", "IT", "Business", "Organizational", "organizational", "Application", "application"));
+
+      if (roleName == null &amp;&amp; Util.isEmpty(roleName))
+      {
+        throw new GeneralException(String.format("Role name [%s] is Empty or null in csv",roleName));
+      }
+
+      Bundle role = context.getObject(Bundle.class, roleName);
+
+      if (role == null) 
+      {
+        logger.debug("Role does not exist, creating new: "+roleName);
+        role = new sailpoint.object.Bundle();
+      }
+
+      role.setName(roleName);
+      role.addDescription("en_US",roleDesc);
+      role.setDisplayName(roleDisplayName);
+      role.setAttribute("approvalScheme",approvalSchemeValue);
+      role.setAllowDuplicateAccounts(false);
+      role.setAllowMultipleAssignments(false);
+      role.setMergeTemplates(false);
+
+      if (validRoletypes.contains(roleType))
+      {
+        role.setType(roleType.toLowerCase());
+      }
+      else
+      {
+        throw new GeneralException(String.format("RoleType [%s] is Empty or null in csv for %s",roleType,roleName)); 
+      }
+
+      Identity ownerId = context.getObject(Identity.class, roleOwner);
+      if (ownerId==null) 
+      {
+        ownerId = context.getObject(Identity.class, "spadmin");
+        taskResult.addMessage(new Message(Message.Type.Info, "WARNING: Could not find owner ["+roleOwner+"] using spadmin instead for " +roleName+ " role.",null));       
+      }
+      role.setOwner(ownerId);
+
+      if (role.getType().equals("business"))
+      {
+        businessRoleList.add(role.getName());
+        businessRoleCounter++;
+        RFC4180LineParser subRoleParser = new RFC4180LineParser("|");
+        List requiredRolesList = subRoleParser.parseLine(requiredRoles);
+        for (String requiredRoleName : Util.safeIterable(requiredRolesList))
+        {
+          Bundle requiredRole = context.getObjectByName(Bundle.class, requiredRoleName);
+          if (requiredRole!= null) 
+          {
+            role.addRequirement(requiredRole);
+          }           
+        }
+        List inheritedRolesList = subRoleParser.parseLine(inheritedRoles);
+        for (String inheritedRoleName : Util.safeIterable(inheritedRolesList)) 
+        {
+          Bundle inheritedRole = context.getObjectByName(Bundle.class, inheritedRoleName);
+          if (inheritedRole!= null) 
+          {
+            role.addInheritance(inheritedRole);
+          }           
+        }
+      }
+      else if (role.getType().equals("it"))
+      {
+        itRoleList.add(role.getName());
+        itRoleCounter++;
+        RFC4180LineParser subRoleParser = new RFC4180LineParser("|");
+        List inheritedRolesList = subRoleParser.parseLine(inheritedRoles);
+        for (String inheritedRoleName : Util.safeIterable(inheritedRolesList))
+        {
+          Bundle inheritedRole = context.getObjectByName(Bundle.class, inheritedRoleName);
+          if (inheritedRole!= null) 
+          {
+            role.addInheritance(inheritedRole);
+          }           
+        }
+      }
+	  else if (role.getType().equals("application"))
+      {
+        applicationRoleList.add(role.getName());
+        applicationRoleCounter++;
+        RFC4180LineParser subRoleParser = new RFC4180LineParser("|");
+        List inheritedRolesList = subRoleParser.parseLine(inheritedRoles);
+        for (String inheritedRoleName : Util.safeIterable(inheritedRolesList))
+        {
+          Bundle inheritedRole = context.getObjectByName(Bundle.class, inheritedRoleName);
+          if (inheritedRole!= null) 
+          {
+            role.addInheritance(inheritedRole);
+          }           
+        }
+      }	  
+      else if (role.getType().equals("organizational"))
+      {
+        organizationalRoleList.add(role.getName());
+        organizationRoleCounter++;
+        RFC4180LineParser subRoleParser = new RFC4180LineParser("|");
+        List inheritedRolesList = subRoleParser.parseLine(inheritedRoles);
+        for (String inheritedRoleName : Util.safeIterable(inheritedRolesList))
+        {
+          Bundle inheritedRole = context.getObjectByName(Bundle.class, inheritedRoleName);
+          if (inheritedRole!= null) 
+          {
+            role.addInheritance(inheritedRole);
+          }           
+        }      
+      }
+      if (hasReadOnlyMode.equalsIgnoreCase("false"))
+      {
+        context.saveObject(role);
+        roleDefinitionImportCounter++;
+	Describer describer = new Describer(role);
+        describer.saveLocalizedAttributes(context);
+        context.commitTransaction();
+        context.decache(role);  
+      }
+    }
+
+    catch (Exception e)
+    {
+      logger.error("In Build Role Method: "+e);
+      taskResult.addMessage(new Message(Message.Type.Error, "Build Role Method: "+e,null));
+    }
+  }
+
+
+
+  /** This method will Iterate the roleMap to create profiles in IT role. 
+   * @param roleMap
+   */
+  public void buildProfilesForIndividualRole (Map roleMap)
+  {
+    try 
+    {
+      for(Map.Entry entry : Util.safeIterable(roleMap.entrySet()))
+      {  
+        String itRoleName = entry.getKey();
+        System.out.println("itRoleName:::::"+itRoleName);
+
+		if (hasReadOnlyMode.equalsIgnoreCase("false")) {
+      System.out.println("hasReadOnlyMode:::::"+hasReadOnlyMode);
+			cleanupProfiles(itRoleName);
+      System.out.println("hasReadOnlyMode after clean:::::"+hasReadOnlyMode);
+		}
+		
+        HashMap map = entry.getValue();
+        for (Map.Entry ent : Util.safeIterable(map.entrySet()))
+        {
+          System.out.println("map entry:::::"+map);
+          String appName = ent.getKey();
+          HashMap attrMap = ent.getValue();
+          for (Map.Entry val : Util.safeIterable(attrMap.entrySet()))
+          {
+            System.out.println("attrMap:::::"+attrMap);
+            String attrName = val.getKey();
+            List listMap = val.getValue();
+            List valueList = new ArrayList();
+            for (Object obj : Util.safeIterable(listMap))
+            {
+              System.out.println("obj::::"+obj);
+              HashMap e = (HashMap) obj;
+              String entitValue = (String) e.get("Entitlement_AttributeValue").replace("\\", "\\\\"); // replacing for KLT file path values       
+              valueList.add(entitValue);
+            }
+            hasValueInManagedAttribute = checkManagedAttributes(appName, attrName ,valueList);
+            System.out.println("hasValueInManagedAttribute::::"+hasValueInManagedAttribute);
+            if (hasReadOnlyMode.equalsIgnoreCase("false") &amp;&amp; hasValueInManagedAttribute)
+            {
+              System.out.println("Create profile::::"+itRoleName);
+              createProfiles(itRoleName, appName, attrName, valueList); 
+            }
+          }
+        }
+      }
+    }
+
+    catch (Exception e)
+    {
+      logger.error("Exception occurred while iterating map to create profiles "+e.getMessage());
+      taskResult.addMessage(new Message(Message.Type.Warn, "Exception occurred while iterating map to create profiles "+e,null));
+    }
+  }
+
+  /**This method will read the csv file.
+   * @param csvFileName
+   * @return
+   */
+  public List processFile (String csvFileName)
+  {
+    List masterList = new ArrayList();
+    List headerStrings = new ArrayList();
+    String delimiter = ",";
+    String thisLine = null;
+    String header = null;
+    RFC4180LineIterator fileIn = null;
+    BufferedReader br = null;
+    RFC4180LineParser parser = null;
+
+    File file = new File(csvFileName);
+
+    if ((!file.exists()) || (file.isDirectory()))
+    {
+      throw new GeneralException(String.format("Unable to find file: [%s]",csvFileName));      
+    }
+
+    logger.info("Importing Roles from: " + csvFileName + " ...");
+
+    try
+    {
+      br = new BufferedReader(new FileReader(csvFileName));
+      fileIn = new RFC4180LineIterator(br);
+      parser = new RFC4180LineParser(delimiter);
+
+      if (null != (header = fileIn.readLine()))
+      {
+        List headerList = parser.parseLine(header);
+        for (String header : headerList)
+        {
+          headerStrings.add(header.trim());
+        }
+      }
+
+      while (null != (thisLine = fileIn.readLine())) 
+      {
+        List tokens = parser.parseLine(thisLine);
+        HashMap lineHash = new HashMap();
+        if (tokens.size() == headerStrings.size())
+        {
+          for (int i=0; i &lt; tokens.size(); i++) 
+          {
+
+            String headerString = headerStrings.get(i);
+            String valueString = tokens.get(i);
+            if (null != valueString)
+            {
+              valueString = StringEscapeUtils.unescapeCsv(valueString);
+              valueString = valueString.trim(); 
+            }
+            logger.debug("header " + headerString + " == " + valueString);
+            lineHash.put(headerString, valueString);
+          }
+          masterList.add(lineHash);          
+        }
+        else
+        {
+          taskResult.addMessage(new Message(Message.Type.Error, "Invalid values "+e,null));
+        }
+
+      }
+    }
+    catch (Exception e)
+    {
+      taskResult.addMessage(new Message(Message.Type.Error, "Exception on reading the csv file "+e,null));
+    }
+    finally 
+    {
+      if (thisLine != null) 
+      {
+        try 
+        {
+          fileIn.close();
+        } 
+        catch (IOException e) 
+        {
+          e.printStackTrace();
+        }
+      }
+    }
+    return masterList;
+  }
+  
+	public void cleanupProfiles(String itRoleName) throws GeneralException {
+		Bundle roleObj = context.getObject(Bundle.class, itRoleName);
+		if (roleObj != null) {
+			roleObj.setProfiles(null);
+			context.saveObject(roleObj);
+			context.commitTransaction();
+			context.decache(roleObj);
+		}
+	}  
+
+
+  //========================================================
+  //              Rule Starts here
+  //========================================================
+
+
+ 		Log logger = LogFactory.getLog("Rule_Entitlement_Import_Roles");
+  	logger.info("Entering Rule_Entitlement_Import_Roles");
+
+
+  int roleDefinitionImportCounter = 0;
+  int itRoleCounter = 0;
+  int businessRoleCounter = 0;
+  int organizationRoleCounter = 0;
+  int applicationRoleCounter = 0;
+  String csvRoleDefinitionFileName = config.get("File_path_Role_Definition"); //"C:\Eshiam\Role_Template\rolecsv.csv"
+   
+  String csvEntitlementsMappingFileName = config.get("File_path_Map_Entitlements");//"C:\Eshiam\Role_Template\Roles-Entcsv.csv"
+  String hasReadOnlyMode =config.get("ReadOnlyMode"); //TRUE
+  List roleDefinitionMasterList = new ArrayList();
+  List entitlementsMappingMasterList = new ArrayList();
+  List itRoleList = new ArrayList();
+  List businessRoleList = new ArrayList();
+  List organizationalRoleList = new ArrayList();
+  List applicationRoleList = new ArrayList();
+  boolean hasValueInManagedAttribute;
+  Map roleMap = new HashMap();
+
+  Comparator sortByRoleType = new Comparator() 
+  { 
+    String getRoleType(HashMap map) 
+    {
+      String roleType = map.get("Role_Type");
+      System.out.println("Role_Type----:::"+Role_Type);
+      return roleType;
+    }
+
+    public int compare(Object o1, Object o2) 
+    {
+      String roleType1 = getRoleType((HashMap) o1);
+      String roleType2 = getRoleType((HashMap) o2);
+      System.out.println("roleType2----:::"+roleType2);
+      return roleType1.compareTo(roleType2);
+      
+    }
+  };
+
+
+  if (csvRoleDefinitionFileName == null || csvEntitlementsMappingFileName == null)
+  {
+    throw new GeneralException("Unable to find File Path. Please enter the valid path in task definition");
+  }
+
+  // Reading Role Definition csv file
+
+  if (Util.isNotNullOrEmpty(csvRoleDefinitionFileName))
+  {
+    roleDefinitionMasterList = processFile(csvRoleDefinitionFileName);
+    System.out.println("roleDefinitionMasterList----:::"+roleDefinitionMasterList);
+  }
+
+  // sort csv file with IT role type
+
+  Collections.sort(roleDefinitionMasterList, Collections.reverseOrder(sortByRoleType));
+
+
+  // Building Roles
+  try
+  {
+    for (Object entry : Util.safeIterable(roleDefinitionMasterList))
+    {
+      HashMap roleHash = (HashMap) entry;
+      buildRole(roleHash);
+      System.out.println("roleHash----:::"+roleHash);
+    }
+  }
+  catch (Exception e)
+  {
+    logger.error("Exception occurred while building the roles "+e.getMessage());
+    taskResult.addMessage(new Message(Message.Type.Warn, "Exception occurred while building the roles "+e,null));	
+  }
+
+  // Reading Entitlements mapping csv file
+
+  if (Util.isNotNullOrEmpty(csvEntitlementsMappingFileName))
+  {
+    entitlementsMappingMasterList = processFile(csvEntitlementsMappingFileName);
+    System.out.println("entitlementsMappingMasterList----:::"+entitlementsMappingMasterList);
+  }
+
+  // Build Profiles for IT Roles
+  roleMap = buildIndividualRoleEntitlements (entitlementsMappingMasterList);
+	System.out.println("roleMap----:::"+roleMap);
+  buildProfilesForIndividualRole (roleMap);
+  	System.out.println("roleMap Rajasekhar----:::"+roleMap);
+  taskResult.put("TotalNumberOfRolesImported",roleDefinitionImportCounter);
+  taskResult.put("TotalNumberOfITRolesImported",itRoleCounter);
+  taskResult.put("NameOfITRoleImported",itRoleList);
+  taskResult.put("TotalNumberOfBusinessRolesImported",businessRoleCounter);
+  taskResult.put("NameOfBusinessRoleImported",businessRoleList);
+  taskResult.put("TotalNumberOfOrganizationRolesImported",organizationRoleCounter);
+  taskResult.put("NameOfOrganizationRoleImported",organizationalRoleList);
+  taskResult.put("TotalNumberOfApplicationRolesImported",applicationRoleCounter);
+  taskResult.put("NameOfApplicationRoleImported",applicationRoleList);
+  System.out.println("Task Result----:::"+taskResult.toXml());
+  logger.info("Exiting Rule_Entitlement_Import_Roles");
+  //System.out.println("logger Result----:::"+logger);  
+  </Source>
+</Rule>
