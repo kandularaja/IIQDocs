@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE Rule PUBLIC "sailpoint.dtd" "sailpoint.dtd">
+<Rule created="1658827254873" id="c0a80c018239142e818239cf2c590040" language="beanshell" modified="1681117375152" name="R1-Managed Entitlement Customization Rule" type="ManagedAttributePromotion">
+  <Description>A ManagedAttributePromotion rule is called when ManagedAttributes are automatically created during aggregation, refresh, or from the missing entitlement descriptions task.
+
+This can modify the ManagedAttribute that is passed in to set fields such as owner, requestable, or explanations before they are saved.</Description>
+  <Signature>
+    <Inputs>
+      <Argument name="log">
+        <Description>
+          The log object associated with the SailPointContext.
+        </Description>
+      </Argument>
+      <Argument name="context">
+        <Description>
+          A sailpoint.api.SailPointContext object that can be used to query the database if necessary.
+        </Description>
+      </Argument>
+      <Argument name="attribute">
+        <Description>
+          The sailpoint.object.ManagedAttribute to modify during promotion.
+        </Description>
+      </Argument>
+      <Argument name="application">
+        <Description>
+          The sailpoint.object.Application the managed attribute is from.
+        </Description>
+      </Argument>
+      <Argument name="state" type="Map">
+        <Description>
+          A Map that contains managed attribute promotion shared state during a task run.
+        </Description>
+      </Argument>
+    </Inputs>
+  </Signature>
+  <Source>import sailpoint.object.*;
+import java.util.Locale;
+
+System.out.println("Managed Entitlement Customization Rule");
+String appname = application.getName();
+String description = "This entitlement belongd to applcation::  "+appname;
+System.out.println("description :: "+description );
+attribute.addDescription(Locale.US.toString(), description); 
+return attribute;</Source>
+</Rule>

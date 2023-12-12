@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE Rule PUBLIC "sailpoint.dtd" "sailpoint.dtd">
+<Rule created="1681904173551" id="c0a81db3879319e38187994d01ef037c" language="beanshell" modified="1681906881025" name="TestdRule" type="Workflow">
+  <Source>
+
+  import sailpoint.api.*;
+  import sailpoint.object.*;
+  import sailpoint.tools.*;
+  import sailpoint.api.*;
+  import sailpoint.web.messages.MessageKeys;
+
+  log.error("Rule Loaded");
+ 
+
+  </Source>
+</Rule>

@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE Rule PUBLIC "sailpoint.dtd" "sailpoint.dtd">
+<Rule created="1657797590813" id="c0a80c0181f8157b8181fc6fbf1b0213" language="beanshell" modified="1681117373778" name="R1-MergeMapRule" type="MergeMaps">
+  <Description>This rule merges two maps together. This is used when there are multiple lines that represent the same object, and certain attributes have to merged.</Description>
+  <Signature returnType="Map">
+    <Inputs>
+      <Argument name="log">
+        <Description>
+          The log object associated with the SailPointContext.
+        </Description>
+      </Argument>
+      <Argument name="context">
+        <Description>
+          A sailpoint.api.SailPointContext object that can be used to query the database if necessary.
+        </Description>
+      </Argument>
+      <Argument name="application">
+        <Description>
+          The application associated with the Connector calling the rule.
+        </Description>
+      </Argument>
+      <Argument name="schema">
+        <Description>
+          The Schema from the application.
+        </Description>
+      </Argument>
+      <Argument name="current">
+        <Description>
+          The current Map object that needs merging.
+        </Description>
+      </Argument>
+      <Argument name="newObject">
+        <Description>
+          The new Map object that needs merging.
+        </Description>
+      </Argument>
+      <Argument name="mergeAttrs">
+        <Description>
+          A List of the attributes to merge.
+        </Description>
+      </Argument>
+    </Inputs>
+    <Returns>
+      <Argument name="map">
+        <Description>
+          A Map of the current and new maps, merged according to the attributes list.
+        </Description>
+      </Argument>
+    </Returns>
+  </Signature>
+  <Source>import sailpoint.api.SailPointContext;  
+import sailpoint.object.Identity;
+import sailpoint.object.*; 
+import java.util.*;  
+import java.io;
+
+  System.out.println("Called Merge Maps Rule");
+
+Map Emp = new HashMap();
+
+
+  return Emp ;</Source>
+</Rule>

@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE Rule PUBLIC "sailpoint.dtd" "sailpoint.dtd">
+<Rule created="1657797148653" id="c0a80c0181f8157b8181fc68ffed01fe" language="beanshell" modified="1687240980121" name="R1_BuildMaprule" type="BuildMap">
+  <Description>This rule is used by the delimited file connector to build a map representation of the delimited data.</Description>
+  <Signature returnType="Map">
+    <Inputs>
+      <Argument name="log">
+        <Description>
+          The log object associated with the SailPointContext.
+        </Description>
+      </Argument>
+      <Argument name="context">
+        <Description>
+          A sailpoint.api.SailPointContext object that can be used to query the database if necessary.
+        </Description>
+      </Argument>
+      <Argument name="application">
+        <Description>
+          The application whose data file is being processed.
+        </Description>
+      </Argument>
+      <Argument name="schema">
+        <Description>
+          The Schema currently in use.
+        </Description>
+      </Argument>
+      <Argument name="state">
+        <Description>
+          A Map containing state information.
+        </Description>
+      </Argument>
+      <Argument name="record">
+        <Description>
+          A List of data tokens parsed from the current line of the data file.
+        </Description>
+      </Argument>
+      <Argument name="cols">
+        <Description>
+          A List of the columns to use.
+        </Description>
+      </Argument>
+    </Inputs>
+    <Returns>
+      <Argument name="map">
+        <Description>
+          A Map of the resource object assembled from the data.
+        </Description>
+      </Argument>
+    </Returns>
+  </Signature>
+  <Source>
+import sailpoint.api.SailPointContext;  
+import sailpoint.object.Identity;
+import sailpoint.object.*; 
+import java.util.*;  
+import java.io;
+import sailpoint.connector.DelimitedFileConnector;
+import sailpoint.object.Permission;
+
+System.out.println("Called Build map rule"); 
+Map map = DelimitedFileConnector.defaultBuildMap(cols, record);
+  if(map!=null)
+  {
+  System.out.println("Before map::: "+map);   
+String strFullNmae = map.get("LAST_NAME")+"  "+map.get("FIRST_NAME");
+  System.out.println("strFullNmae::: "+strFullNmae);  
+map.put("FULL_NAME",strFullNmae);
+System.out.println("After map::: "+map);  
+  }
+return map ;</Source>
+</Rule>

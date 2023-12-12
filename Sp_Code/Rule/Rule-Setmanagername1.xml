@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE Rule PUBLIC "sailpoint.dtd" "sailpoint.dtd">
+<Rule created="1658140675106" id="c0a80c0182101158818210e2cc220023" language="beanshell" modified="1681117373971" name="SetManagerName1" type="Validation">
+  <Source>
+import sailpoint.api.SailPointContext;  
+import sailpoint.object.Identity;
+import sailpoint.object.*; 
+import java.util.*;  
+import java.io;
+import sailpoint.object.Link;
+import sailpoint.object.Attributes;
+import sailpoint.object.ManagedAttribute;
+import org.apache.log4j.Logger;
+import org.apache.log4j.Level;  
+
+  Logger log = Logger.getLogger("sailpoint.services.bshdemo");
+  log.error("Manager map logger");
+  
+  String mnagerName= "";
+  String mnagerNam1= "";
+  String strDispName= "";
+  String strDispName= "";
+  
+  String strmngedattName= "";
+  String strEmpID= "1a";
+  String strIdentityEmpID="";
+  String strApplication = "";
+  List list = new ArrayList();
+  List list1 = new ArrayList();
+  List listid = new ArrayList();
+  List entlObj = new ArrayList();
+  
+  String ssss= "";
+  
+  
+  List entlObj =  context.getObjects(ManagedAttribute.class);
+  
+  for(ManagedAttribute mngatt : entlObj)
+  {
+   // Application app = mngatt.getApplication();
+    System.out.println(mngatt.displayName);
+                       //strmngedattName = "    :::::\n"+strmngedattName+mngatt.displayName;    
+  }  
+
+  /*List listOfIdentities =  context.getObjects(Identity.class);
+  for(Identity id : listOfIdentities)
+  {  
+    listid.addAll(id.getLinks());
+    if(listid!=null)
+    {
+      for(Link li:listid)
+      {
+         ssss = ssss+"\n"+id.getName()+" is belongs to Application  "+li.getApplicationName();
+      }       
+  	}
+    strIdentityEmpID = id.getAttribute("EmployeeID");
+    if(strIdentityEmpID != null)
+    {
+       mnagerName = id.getAttribute("manager");
+       mnagerNam1 = mnagerNam1+"Employee :: "+id.getName()+" Manager is -  "+mnagerName+"\n";       
+    }
+  }  
+  
+   List listOfAllications =  context.getObjects(Application.class);
+
+   for(Application Apid : listOfAllications)
+   {
+    strApplication = strApplication+"\n"+Apid.getName();    
+   }  
+  */
+  return strmngedattName;  
+  </Source>
+</Rule>

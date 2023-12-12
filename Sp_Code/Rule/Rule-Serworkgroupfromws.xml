@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE Rule PUBLIC "sailpoint.dtd" "sailpoint.dtd">
+<Rule created="1683559352923" id="c0a81db387fb113b8187fbf50a4c014c" language="beanshell" modified="1684302988477" name="SerWorkGroupFromWS" type="ResourceObjectCustomization">
+  <Description>This rule is configured on the application and is called after the connector has build a ResourceObject from the native application data.
+
+Initially designed for non-rule based connectors to add SPPrivileged flag to an object, but could be used to do any transformations.</Description>
+  <Signature returnType="ResourceObject">
+    <Inputs>
+      <Argument name="log">
+        <Description>
+          The log object associated with the SailPointContext.
+        </Description>
+      </Argument>
+      <Argument name="context">
+        <Description>
+          A sailpoint.api.SailPointContext object that can be used to query the database if necessary.
+        </Description>
+      </Argument>
+      <Argument name="object">
+        <Description>
+          The ResourceObject built by the connector.
+        </Description>
+      </Argument>
+      <Argument name="application">
+        <Description>
+          Application that references the connector.
+        </Description>
+      </Argument>
+      <Argument name="connector">
+        <Description>
+          The connector object.
+        </Description>
+      </Argument>
+      <Argument name="state">
+        <Description>
+          A Map containing state information.
+        </Description>
+      </Argument>
+    </Inputs>
+    <Returns>
+      <Argument name="resourceObject">
+        <Description>
+          The updated resource object.
+        </Description>
+      </Argument>
+    </Returns>
+  </Signature>
+  <Source>import java.io.IOException;
+  import java.io.InputStream;
+  import java.net.HttpURLConnection;
+  import java.net.URL;
+  import java.util.Scanner;
+  import org.json.JSONObject;  
+  import org.json.JSONArray;  
+  import org.json.JSONParser;
+  URL url = new URL("http://localhost:8080/identityiq8.1/plugin/rest/eshiamEmployeePortalPlugin/getUser/101");
+  HttpURLConnection httpConn = (HttpURLConnection) url.openConnection();
+  httpConn.setRequestMethod("GET");
+
+  httpConn.setRequestProperty("Authorization", "Basic c3BhZG1pbjphZG1pbg==");
+
+  InputStream responseStream = httpConn.getResponseCode() / 100 == 2 ? httpConn.getInputStream(): httpConn.getErrorStream();
+  Scanner s = new Scanner(responseStream).useDelimiter("\\A");
+  String response = s.hasNext() ? s.next() : "";
+  JSONObject json = new JSONObject(response);
+  String strt =json.get("objects").get(0).get("groups").get(0);
+ 
+   URL url = new URL("http://localhost:8080/identityiq8.1/plugin/rest/eshiamEmployeePortalPlugin/getAllGroups");
+        HttpURLConnection httpConn = (HttpURLConnection) url.openConnection();
+        httpConn.setRequestMethod("GET");
+
+        httpConn.setRequestProperty("Authorization", "Basic c3BhZG1pbjphZG1pbg==");
+
+        InputStream responseStream = httpConn.getResponseCode() / 100 == 2 ? httpConn.getInputStream(): httpConn.getErrorStream();
+        Scanner s = new Scanner(responseStream).useDelimiter("\\A");
+        String response = s.hasNext() ? s.next() : "";
+        System.out.println(response);
+   		  JSONObject json = new JSONObject(response);
+  		  String strt =json.get("objects").get(0).get("group_id");
+
+object.put("GroupID",strt );
+return object;</Source>
+</Rule>

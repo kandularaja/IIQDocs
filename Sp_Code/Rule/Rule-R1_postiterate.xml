@@ -1,0 +1,100 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE Rule PUBLIC "sailpoint.dtd" "sailpoint.dtd">
+<Rule created="1658213325487" id="c0a80c0182151034818215375aad000e" language="beanshell" modified="1681117374586" name="R1_PostIterate" type="PostIterate">
+  <Description>This rule is called after the connector processes the data in a file.
+
+Stats is a Map passed in by the connector with the information it has gathered. Custom keys can be added here if necessary for validation.</Description>
+  <Signature returnType="void">
+    <Inputs>
+      <Argument name="log">
+        <Description>
+          The log object associated with the SailPointContext.
+        </Description>
+      </Argument>
+      <Argument name="context">
+        <Description>
+          A sailpoint.api.SailPointContext object that can be used to query the database if necessary.
+        </Description>
+      </Argument>
+      <Argument name="application">
+        <Description>
+          Application being iterated.
+        </Description>
+      </Argument>
+      <Argument name="schema">
+        <Description>
+          Schema requested during iteration.
+        </Description>
+      </Argument>
+      <Argument name="stats">
+        <Description>
+          A map of the stats for the current file that was just iterated.
+          Contains keys:
+            fileName : (String) filename of the file about to be processed
+            absolutePath : (String) absolute filename
+            length : (Long) length in bytes
+            lastModified : (Long) last time the file was updated Java GMT
+            columnNames : (List) column names that were used during the iteration
+            objectsIterated : (Long) total number of objects iterated during this run
+        </Description>
+      </Argument>
+    </Inputs>
+  </Signature>
+  <Source>
+  
+import sailpoint.object.*;
+import java.time.format.DateTimeFormatter;  
+import java.time.LocalDateTime;  
+import java.util.*;
+
+System.out.println("Post Iterate called");
+
+String appName =  application.getName();
+String curDate = java.time.LocalDate.now().toString();
+String custobjName = "DelimtCustObj";// appName +curDate ;
+System.out.println("custobjName:::"+custobjName);
+//Checking if custom object exist
+  Custom custlst = context.getObjectByName( Custom.class, custobjName);
+  if(custlst != null)
+		{
+		System.out.println("The Custon object "+custobjName+"alredy exist");     
+    
+    //put application values to cust objet
+    //custlst.getAttributes().put("Application Name", arappname); 
+    List lstapp = (List) custlst.getAttributes().get("Application Name");
+    lstapp.add(appName);
+    List lstdate = (List) custlst.getAttributes().get("Aggregation Date");
+    lstdate.add(curDate);
+    context.saveObject(custlst);
+    context.commitTransaction();
+    //return;			
+		}
+		else
+		{  
+      //Create custom object
+      System.out.println("The Custon object creating");  
+      Custom cust=new Custom();
+      cust.setName(custobjName);
+      Map m=new HashMap();
+      
+       ArrayList arappname = new ArrayList();
+       appname.add(appName);
+      
+      ArrayList arcreatedate = new ArrayList();
+      arcreatedate.add(curDate);
+      
+      
+      m.put("Application Name", arappname);     
+      m.put("Aggregation Date",arcreatedate);  
+      
+      Attributes strb = new Attributes();
+      strb.setMap(m);
+      
+      cust.setAttributes(strb);  
+      
+       context.saveObject(cust);
+       context.commitTransaction();   
+     
+      System.out.println("The Custon object created");
+    }</Source>
+</Rule>

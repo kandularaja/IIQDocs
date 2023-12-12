@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE Rule PUBLIC "sailpoint.dtd" "sailpoint.dtd">
+<Rule created="1683540159100" id="c0a81db387e61fe58187fad02a7c0756" language="beanshell" modified="1683540979950" name="EmailTEmplateCall" type="ResourceObjectCustomization">
+  <Description>This rule is configured on the application and is called after the connector has build a ResourceObject from the native application data.
+
+Initially designed for non-rule based connectors to add SPPrivileged flag to an object, but could be used to do any transformations.</Description>
+  <Source>
+   // Library inclusions for BeanShell
+      import sailpoint.api.*;
+      import sailpoint.object.*;
+      import sailpoint.tools.*;
+      import java.util.*;
+      import java.lang.*;
+      import java.text.*;
+
+      // Point this to the “To” email address
+      String emailDest = "adam.hampton@example.com";
+      // Specify the email template name in tplName
+      String tplName = "Transfer-Email";
+      EmailTemplate template = context.getObjectByName(EmailTemplate.class, tplName);
+      if (null == template) {
+      //log.error("ERROR: could not find email template [ " + tplName + "]");
+      return;
+      }
+
+      template = (EmailTemplate) template.deepCopy(context);
+      if (null == template) {
+      //log.error("ERROR: failed to deepCopy template [ " + tplName + "]");
+      return;
+      }
+
+      Map args = new HashMap();
+      // Add all args needed by the template like this
+      args.put("DisplayName", "Rajasekhara.");
+   		args.put("Title", "Software Eng.");
+      args.put("SamAccountName", "Kandula RFaja");
+  		args.put("Email", "adam.hampton@example.com");
+ 		  args.put("Description", "Good Desc");
+      args.put("OldBE", "People1");
+ 			 args.put("Company", "Eshiam");
+  
+      EmailOptions ops = new EmailOptions(emailDest, args);
+      context.sendEmailNotification(template, ops);
+      return;
+  
+  </Source>
+</Rule>

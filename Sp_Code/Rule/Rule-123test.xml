@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE Rule PUBLIC "sailpoint.dtd" "sailpoint.dtd">
+<Rule created="1681814065480" id="c0a81db3879319e3818793ee1148016d" language="beanshell" modified="1690521903183" name="123Test">
+  <Source>
+  
+  import sailpoint.object.ClassLists;
+  import java.util.*;
+  
+ //return context.decrypt("1:ACP:5AmMpsetA3womebLti1IDRroPWQ6mw5DS8BmtmGIh+o=");
+
+List l = new ArrayList();
+  int i= ClassLists.VolumeClasses.length;
+	 //System.out.println("VolumeClasses:: "+i);
+	 int j= ClassLists.MajorClasses.length;
+	 //System.out.println("MajorClasses:: "+j);
+  l.add(i);
+  l.add(j);
+
+for (Class clazz: ClassLists.VolumeClasses) {
+  l.add(clazz.getTypeName());
+  l.add(clazz.getCanonicalName());
+  l.add(clazz.getSimpleName());
+}
+// Add this in, its a special type of Identity
+l.add("Workgroup");
+return l;
+ /* import sailpoint.object.*;
+  import sailpoint.api.*;
+  import java.util.*;
+
+  String srcIdName = "Viru Sehwag";
+  String tgtIdName = "Allen Burton";    
+  String appName = "AD-Application";
+  String acctToMove = "CN=Allen Burton,OU=People,OU=Demo,DC=Eshiam,DC=com"; // The name/nativeIdentity of the Account getting moved.
+
+  Identity id1=context.getObjectByName(Identity.class,srcIdName);
+  if(id1 == null)
+    return "Identity Not Availablr";
+  List excp=id1.getExceptions();
+  List store=new ArrayList();
+  for(EntitlementGroup eg:excp){
+    if(eg.getApplication().getName().equalsIgnoreCase(appName)){
+      store.add(eg);
+    }
+  }
+
+  if(store != null){
+    Identity id2=context.getObjectByName(Identity.class,srcIdName);
+    if(id2 == null)
+      return "Identity Not Available";
+    List excp=id2.getExceptions();
+    excp.add(store);
+  }
+  id1.setExceptions(execp);
+  return id1;*/
+  </Source>
+</Rule>

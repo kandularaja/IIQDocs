@@ -1,0 +1,2 @@
+IT_Role_Name,Application_Name,Entitlement_AttributeName,Entitlement_AttributeValue
+IR_Role4,AD-Application, memberOf,"CN=AccountsReceivable,OU=Groups,OU=Demo,DC=Eshiam,DC=com"

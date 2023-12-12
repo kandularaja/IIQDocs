@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE Rule PUBLIC "sailpoint.dtd" "sailpoint.dtd">
+<Rule created="1683715238343" id="c0a81db387fb113b8188053fa9c70ba7" language="beanshell" modified="1687346320602" name="WS-Eshiam-AfterOpRule" type="WebServiceAfterOperationRule">
+  <Description>The Web Services connector will call this rule after performing ANY defined operation. This rule can be used to update the parsed resource object and/or add persistent values to the application's data.
+(See information about what to return for more information)</Description>
+  <Signature returnType="Object">
+    <Inputs>
+      <Argument name="log">
+        <Description>
+          The log object associated with the SailPointContext.
+        </Description>
+      </Argument>
+      <Argument name="context">
+        <Description>
+          A sailpoint.api.SailPointContext object that can be used to query the database if necessary.
+        </Description>
+      </Argument>
+      <Argument name="application">
+        <Description>The application whose data file is being processed.</Description>
+      </Argument>
+      <Argument name="requestEndPoint">
+        <Description>The current request information contain header, body ,response object</Description>
+      </Argument>
+      <Argument name="processedResponseObject">
+        <Description>Response Object processed by the Web services connector</Description>
+      </Argument>
+      <Argument name="rawResponseObject">
+        <Description>Response Object returned from the end system</Description>
+      </Argument>
+      <Argument name="restClient">
+        <Description>REST Client Object</Description>
+      </Argument>
+    </Inputs>
+    <Returns>
+      <Argument name="Map">
+        <Description>A newly created map containing a 'data' key and optionally, a 'connectorStateMap' key.  The 'data' value should be set to a map containing a parsed list of accounts/groups.  
+                The 'connectorStateMap' value can be set to a map containing values that will be persisted to the application definition.
+                </Description>
+      </Argument>
+    </Returns>
+  </Signature>
+  <Source>import java.util.*; 
+  import java.util.HashMap; 
+  import java.util.List; 
+  import java.util.Map; 
+  import java.util.Map.Entry; 
+  import java.util.Iterator; 
+  Map updatedMapInfo = new HashMap();
+
+
+ System.out.println("Parsed response is not null  and "+requestEndPoint);
+ if (parsedResponseObject != null){ 
+  System.out.println("Parsed response is not null:::   "+parsedResponseObject ); 
+
+
+ Map body = requestEndPoint.getBody();
+        String jsonBody = (String) body.get("jsonBody");
+  System.out.println("jsonBody :::   "+jsonBody  ); 
+
+   /*  for (Map iterateMap : parsedResponseObject) { 
+      if (iterateMap != null ) { 
+            Set keySet = iterateMap.keySet(); 
+            for (String s : keySet) { 
+                System.out.println(s); 
+                if (s.equals("given_name")) { 
+           String forStr = (String) iterateMap.get("cust_id"); 
+            forStr = "TEST"+ forStr; 
+                    System.out.println("forStr: " + forStr ); 
+            iterateMap.put("given_name", forStr); 
+        } 
+            } 
+        } 
+    } 
+  updatedMapInfo.put("data", parsedResponseObject); */
+  } 
+ // Map connectorStateMap = new HashMap(); 
+ // connectorStateMap.put("refresh_token","refreshTokenGeneratedInAfterRuleScript"); 
+//  updatedInfoMap.put("connectorStateMap",connectorStateMap); 
+// System.out.println("zfsdfsdfsdf"+updatedMapInfo);
+
+ // return updatedMapInfo;</Source>
+</Rule>

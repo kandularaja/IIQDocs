@@ -1,0 +1,162 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE Rule PUBLIC "sailpoint.dtd" "sailpoint.dtd">
+<Rule created="1681283618522" id="c0a81db387701cf28187745016da07c6" language="beanshell" modified="1682418149479" name="CR_PositionChange_Emailid_Provisining" type="BeforeProvisioning">
+  <Description>Custom Rule 
+    1.Create plan for two users 2 entitlements of differnt application.
+    2.Excute plan.
+
+  </Description>
+  <Source>
+  import sailpoint.object.*;
+  import sailpoint.tools.*;
+  import sailpoint.object.ProvisioningPlan;
+  import sailpoint.object.ProvisioningPlan.AccountRequest;
+  import sailpoint.object.ProvisioningPlan.AttributeRequest; 
+  import sailpoint.object.ProvisioningPlan.Operation;
+  import java.util.*;
+  import sailpoint.tools.*;
+  import sailpoint.object.Filter;
+  import sailpoint.object.QueryOptions;
+  import sailpoint.connector.ConnectorFactory;
+  import sailpoint.object.ManagedAttribute;
+  import sailpoint.api.SailPointContext;
+  import sailpoint.object.Application;
+  import sailpoint.object.EntitlementGroup;
+  import sailpoint.api.IdentityService;
+  import sailpoint.api.*;
+  import sailpoint.api.SailPointContext;
+  import sailpoint.connector.JDBCConnector;
+  import java.sql.Connection;
+  import java.sql.DriverManager;
+  import java.sql.PreparedStatement;
+  import java.sql.SQLException;
+  import sailpoint.tools.GeneralException;  
+  import sailpoint.api.SailPointContext;
+	import sailpoint.api.Provisioner;	  
+  import sailpoint.object.ProvisioningPlan.AccountRequest;
+  import sailpoint.object.ProvisioningPlan.AttributeRequest;
+  import sailpoint.object.ProvisioningPlan.Operation;
+  import  sailpoint.api.IdentityService;
+
+
+ Filter myFilter =Filter.and(Filter.eq("links.application.name", "HR_CSV_Delimited"),Filter.eq("links.extName", "Aaron Nichols"));
+  
+  QueryOptions qo = new QueryOptions();
+  qo.addFilter(myFilter);
+  List ids = context.getObjects(Identity.class, qo);
+  for(Identity id: ids)
+  {
+    
+   List links = id.getLinks();
+    if(links != null)
+    {    
+    
+    for(Link lk:links)
+    {
+      String MailID = "";
+       String location = lk.getAttribute("Location");
+      if(location == null || location.isEmpty()) return "";    
+    StringBuilder sb = new StringBuilder();
+    boolean found = false;
+    for(char c : location.toCharArray()){
+        if(Character.isDigit(c)){
+            sb.append(c);
+            found = true;
+        } else if(found){
+            // If we already found a digit before and this char is not a digit, stop looping
+            break;                
+        }
+    }
+    
+      if((lk.getAttribute("Position").substring(0,3)).equalsIgnoreCase("001"))
+      {
+        MailID = "uae"+lk.getAttribute("Department")+sb.toString()+"@americana.com";
+      }
+      else if((lk.getAttribute("Position").substring(0,3)).equalsIgnoreCase("005"))
+      {
+        MailID = "qa"+lk.getAttribute("Department")+sb.toString()+"@americana.com";
+      }
+        //mail id alredy assigned check
+       Filter myADFilter =Filter.and(Filter.eq("links.application.name", "AD-Application"),Filter.eq("links.extEmail", MailID));
+      
+      QueryOptions qoad = new QueryOptions();
+  		qoad.addFilter(myADFilter);
+  		List idsad = context.getObjects(Identity.class, qoad);
+     
+      if(idsad != null)
+      {
+        for(Identity idAd: idsad)
+        {
+          List adlink = idAd.getLinks();
+         for(Link lkad:adlink)
+    {
+         
+          if(lkad.getApplication().getName().equalsIgnoreCase("AD-Application"))
+          {
+            
+                ProvisioningPlan planad  = new ProvisioningPlan();         
+              AccountRequest arsad= new AccountRequest();
+              AttributeRequest atrad = new AttributeRequest();
+              planad.setIdentity(idAd);
+
+
+              arsad.setNativeIdentity(lkad.getNativeIdentity());
+              arsad.setApplication("AD-Application");
+              arsad.setOp(ProvisioningPlan.ObjectOperation.Modify);
+
+              atrad.setName("mail");
+              atrad.setOp(Operation.Add);
+              atrad.setValue(MailID+"x");	
+
+              Provisioner prvs = new Provisioner(context);
+
+              arsad.add(atrad);
+              planad.add(arsad);
+
+            // prvs.setNoCreateTemplates(true);
+            // prvs.execute(plan);
+             //context.commitTransaction();
+              // lk.setIiqDisabled(true);
+             //return planad;
+          }
+        }
+        }
+      }
+      //IdentityService idser = new IdentityService();
+      
+      Link lllll = idser.getLink(id,"AD-Application", id.getName(), lk.getNativeIdentity())
+      
+       ProvisioningPlan plan  = new ProvisioningPlan();         
+		    AccountRequest ars= new AccountRequest();
+        AttributeRequest atr = new AttributeRequest();
+      // plan.setNativeIdentity(lk.getNativeIdentity());
+       plan.setIdentity(id);
+        
+        ars.setNativeIdentity(lk.getNativeIdentity());
+        ars.setApplication("AD-Application");
+        ars.setOp(ProvisioningPlan.ObjectOperation.Modify);
+      
+      	atr.setName("mail");
+		    atr.setOp(Operation.Add);
+        atr.setValue(MailID);	
+        
+        Provisioner prvs = new Provisioner(context);
+       
+      	ars.add(atr);
+  	    plan.add(ars);
+        
+       prvs.setNoCreateTemplates(true);
+		prvs.execute(plan);
+			context.commitTransaction();
+      //lk.setIiqDisabled(true);
+        return plan;
+      
+       }
+        
+      }  
+  }
+    
+  
+     
+    </Source>
+</Rule>
