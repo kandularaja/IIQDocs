@@ -1,0 +1,387 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE Application PUBLIC "sailpoint.dtd" "sailpoint.dtd">
+<Application connector="sailpoint.connector.webservices.WebServicesConnector" created="1682746717047" featuresString="PROVISIONING, ENABLE, PASSWORD, AUTHENTICATE, UNLOCK" id="c0a81db387c610fb8187cb853377082f" modified="1683027723254" name="WS-Eshaim" profileClass="" type="Web Services">
+  <Attributes>
+    <Map>
+      <entry key="acctAggregationEnd">
+        <value>
+          <Date>1682939925930</Date>
+        </value>
+      </entry>
+      <entry key="acctAggregationStart">
+        <value>
+          <Date>1682939925751</Date>
+        </value>
+      </entry>
+      <entry key="afterProvisioningRule"/>
+      <entry key="authenticationMethod" value="BasicLogin"/>
+      <entry key="beforeProvisioningRule" value="printPlan"/>
+      <entry key="clientCertAuthEnabled">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="compositeDefinition"/>
+      <entry key="connectionParameters">
+        <value>
+          <List>
+            <Map>
+              <entry key="afterRule"/>
+              <entry key="beforeRule"/>
+              <entry key="body">
+                <value>
+                  <Map>
+                    <entry key="bodyFormData"/>
+                    <entry key="bodyFormat" value="raw"/>
+                    <entry key="jsonBody"/>
+                  </Map>
+                </value>
+              </entry>
+              <entry key="contextUrl" value="/ping"/>
+              <entry key="customAuthUrl"/>
+              <entry key="header"/>
+              <entry key="httpMethodType" value="GET"/>
+              <entry key="operationType" value="Test Connection"/>
+              <entry key="paginationSteps"/>
+              <entry key="pagingInitialOffset">
+                <value>
+                  <Integer>0</Integer>
+                </value>
+              </entry>
+              <entry key="pagingSize">
+                <value>
+                  <Integer>50</Integer>
+                </value>
+              </entry>
+              <entry key="parentEndpointName"/>
+              <entry key="resMappingObj"/>
+              <entry key="responseCode">
+                <value>
+                  <List>
+                    <String>200</String>
+                  </List>
+                </value>
+              </entry>
+              <entry key="rootPath"/>
+              <entry key="sequenceNumberForEndpoint" value="1"/>
+              <entry key="uniqueNameForEndPoint" value="Test url"/>
+              <entry key="xpathNamespaces"/>
+            </Map>
+            <Map>
+              <entry key="afterRule"/>
+              <entry key="beforeRule"/>
+              <entry key="body">
+                <value>
+                  <Map>
+                    <entry key="bodyFormData"/>
+                    <entry key="bodyFormat" value="raw"/>
+                    <entry key="jsonBody"/>
+                  </Map>
+                </value>
+              </entry>
+              <entry key="contextUrl" value="/getAllUsers"/>
+              <entry key="customAuthUrl"/>
+              <entry key="header"/>
+              <entry key="httpMethodType" value="GET"/>
+              <entry key="operationType" value="Account Aggregation"/>
+              <entry key="paginationSteps"/>
+              <entry key="pagingInitialOffset">
+                <value>
+                  <Integer>0</Integer>
+                </value>
+              </entry>
+              <entry key="pagingSize">
+                <value>
+                  <Integer>50</Integer>
+                </value>
+              </entry>
+              <entry key="parentEndpointName"/>
+              <entry key="resMappingObj">
+                <value>
+                  <Map>
+                    <entry key="created" value="created"/>
+                    <entry key="department" value="department"/>
+                    <entry key="description" value="description"/>
+                    <entry key="groups" value="groups"/>
+                    <entry key="job_title" value="job_title"/>
+                    <entry key="location" value="location"/>
+                    <entry key="manager_id" value="manager_id"/>
+                    <entry key="updated" value="updated"/>
+                    <entry key="user_email" value="user_email"/>
+                    <entry key="user_id" value="user_id"/>
+                    <entry key="user_name" value="user_name"/>
+                    <entry key="user_status" value="user_status"/>
+                  </Map>
+                </value>
+              </entry>
+              <entry key="responseCode">
+                <value>
+                  <List>
+                    <String>200</String>
+                  </List>
+                </value>
+              </entry>
+              <entry key="rootPath" value="$.objects[*]"/>
+              <entry key="sequenceNumberForEndpoint" value="2"/>
+              <entry key="uniqueNameForEndPoint" value="Account Aggr"/>
+              <entry key="xpathNamespaces"/>
+            </Map>
+            <Map>
+              <entry key="afterRule"/>
+              <entry key="beforeRule"/>
+              <entry key="body">
+                <value>
+                  <Map>
+                    <entry key="bodyFormData"/>
+                    <entry key="bodyFormat" value="raw"/>
+                    <entry key="jsonBody"/>
+                  </Map>
+                </value>
+              </entry>
+              <entry key="contextUrl" value="/getAllGroups"/>
+              <entry key="customAuthUrl"/>
+              <entry key="header"/>
+              <entry key="httpMethodType" value="GET"/>
+              <entry key="operationType" value="Group Aggregation"/>
+              <entry key="paginationSteps"/>
+              <entry key="pagingInitialOffset">
+                <value>
+                  <Integer>0</Integer>
+                </value>
+              </entry>
+              <entry key="pagingSize">
+                <value>
+                  <Integer>50</Integer>
+                </value>
+              </entry>
+              <entry key="parentEndpointName"/>
+              <entry key="resMappingObj">
+                <value>
+                  <Map>
+                    <entry key="group_desc" value="group_desc"/>
+                    <entry key="group_id" value="group_id"/>
+                    <entry key="group_name" value="group_name"/>
+                  </Map>
+                </value>
+              </entry>
+              <entry key="responseCode">
+                <value>
+                  <List>
+                    <String>200</String>
+                  </List>
+                </value>
+              </entry>
+              <entry key="rootPath" value="$.objects[*]"/>
+              <entry key="sequenceNumberForEndpoint" value="3"/>
+              <entry key="uniqueNameForEndPoint" value="Group Aggr"/>
+              <entry key="xpathNamespaces"/>
+            </Map>
+            <Map>
+              <entry key="afterRule"/>
+              <entry key="beforeRule"/>
+              <entry key="body">
+                <value>
+                  <Map>
+                    <entry key="bodyFormData"/>
+                    <entry key="bodyFormat" value="raw"/>
+                    <entry key="jsonBody" value="{&#xD;&#xA;&quot;user_id&quot;:&quot;$plan.user_id$&quot;,&#xD;&#xA;&quot;user_name&quot;:&quot;$plan.user_name$&quot;,&#xD;&#xA;&quot;user_email&quot;:&quot;$plan.user_email$&quot;,&#xD;&#xA;&quot;manager_id&quot;:&quot;$plan.manager_id$&quot;,&#xD;&#xA;&quot;location&quot;:&quot;$plan.location$&quot;,&#xD;&#xA;&quot;department&quot;:&quot;$plan.department$&quot;,&#xD;&#xA;&quot;user_status&quot;:&quot;$plan.user_status$&quot;,&#xD;&#xA;&quot;description&quot;:&quot;$plan.description$&quot;,&#xD;&#xA;&quot;job_title&quot;:&quot;$plan.job_title$&quot;,&#xD;&#xA;&quot;groups&quot;:&quot;$plan.groups$&quot;&#xD;&#xA;}"/>
+                  </Map>
+                </value>
+              </entry>
+              <entry key="contextUrl" value="/createUser"/>
+              <entry key="customAuthUrl"/>
+              <entry key="header"/>
+              <entry key="httpMethodType" value="POST"/>
+              <entry key="operationType" value="Create Account"/>
+              <entry key="paginationSteps"/>
+              <entry key="pagingInitialOffset">
+                <value>
+                  <Integer>0</Integer>
+                </value>
+              </entry>
+              <entry key="pagingSize">
+                <value>
+                  <Integer>50</Integer>
+                </value>
+              </entry>
+              <entry key="parentEndpointName"/>
+              <entry key="resMappingObj"/>
+              <entry key="rootPath"/>
+              <entry key="sequenceNumberForEndpoint" value="4"/>
+              <entry key="uniqueNameForEndPoint" value="Create USer"/>
+              <entry key="xpathNamespaces"/>
+            </Map>
+          </List>
+        </value>
+      </entry>
+      <entry key="createAccountWithEntReq">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="enableHasMore" value="true"/>
+      <entry key="enableStatus"/>
+      <entry key="encrypted" value="accesstoken,refresh_token,oauth_token_info,client_secret,private_key,private_key_password,clientCertificate,clientKeySpec,resourceOwnerPassword,custom_auth_token_info"/>
+      <entry key="fixedPlanMultivaluedAttribute" value="true"/>
+      <entry key="genericWebServiceBaseUrl" value="http://localhost:8080/identityiq8.1/plugin/rest/eshiamEmployeePortalPlugin/"/>
+      <entry key="httpCookieSpecsStandard" value="true"/>
+      <entry key="isGetObjectRequiredForPTA">
+        <value>
+          <Boolean>true</Boolean>
+        </value>
+      </entry>
+      <entry key="nativeChangeDetectionAttributeScope" value="entitlements"/>
+      <entry key="nativeChangeDetectionAttributes"/>
+      <entry key="nativeChangeDetectionEnabled">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="nativeChangeDetectionOperations"/>
+      <entry key="oAuthJwtHeader">
+        <value>
+          <Map>
+            <entry key="alg" value="RS256"/>
+          </Map>
+        </value>
+      </entry>
+      <entry key="oAuthJwtPayload">
+        <value>
+          <Map>
+            <entry key="aud"/>
+            <entry key="exp" value="15f"/>
+            <entry key="iss"/>
+            <entry key="sub"/>
+          </Map>
+        </value>
+      </entry>
+      <entry key="password" value="1:ACP:JyHTzfVjwMorxpLepfnbzLqEhwgHy3QM3LGK3uG1VyA="/>
+      <entry key="private_key_to_update"/>
+      <entry key="saml_assertion_url"/>
+      <entry key="saml_request_body"/>
+      <entry key="sysDescriptions">
+        <value>
+          <Map>
+            <entry key="en_US"/>
+          </Map>
+        </value>
+      </entry>
+      <entry key="templateApplication" value="Web Services"/>
+      <entry key="throwProvAfterRuleException">
+        <value>
+          <Boolean>true</Boolean>
+        </value>
+      </entry>
+      <entry key="throwProvBeforeRuleException">
+        <value>
+          <Boolean>true</Boolean>
+        </value>
+      </entry>
+      <entry key="timeoutInSeconds"/>
+      <entry key="username" value="spadmin"/>
+      <entry key="version" value="v2"/>
+    </Map>
+  </Attributes>
+  <Owner>
+    <Reference class="sailpoint.object.Identity" id="c0a81db3874f140081874fc432ae00ec" name="spadmin"/>
+  </Owner>
+  <ProvisioningForms>
+    <Form name="WS_Eshiam_Provision_Form" objectType="account" type="Create">
+      <Attributes>
+        <Map>
+          <entry key="pageTitle" value="WS_Eshiam_Provision_Form"/>
+        </Map>
+      </Attributes>
+      <Section name="Form Fileds">
+        <Field displayOnly="true" name="user_id" reviewRequired="true" type="string">
+          <Script>
+            <Source>
+return identity.getAttribute("EmployeeID");</Source>
+          </Script>
+        </Field>
+        <Field name="user_name" type="string">
+          <Script>
+            <Source>if(identity!=null)
+return identity.getFirstname();</Source>
+          </Script>
+        </Field>
+        <Field name="user_email" type="string">
+          <Script>
+            <Source>if(identity!=null)
+return identity.getEmail();</Source>
+          </Script>
+        </Field>
+        <Field name="manager_id" reviewRequired="true" type="string">
+          <Script>
+            <Source>
+return identity.getManager();</Source>
+          </Script>
+        </Field>
+        <Field name="location" type="string" value="Hyderabad"/>
+        <Field name="department" type="string">
+          <Script>
+            <Source>if(identity!=null)
+return identity.getAttribute("Department");</Source>
+          </Script>
+        </Field>
+        <Field name="user_status" type="string" value="Active"/>
+        <Field name="description" type="string" value="Desc from pol form"/>
+        <Field name="job_title" type="string" value="Manager"/>
+        <Field name="groups" type="string" value="User"/>
+        <Field name="USER_ID" type="string" value="1c"/>
+      </Section>
+    </Form>
+  </ProvisioningForms>
+  <Schemas>
+    <Schema created="1682746717048" displayAttribute="user_name" groupAttribute="" id="c0a81db387c610fb8187cb8533780831" identityAttribute="user_id" instanceAttribute="" modified="1683027723255" nativeObjectType="user" objectType="account">
+      <AttributeDefinition name="created" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="department" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="description" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+      <AttributeDefinition entitlement="true" managed="true" multi="true" name="groups" schemaObjectType="group" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="job_title" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="location" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="manager_id" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="updated" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="user_email" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="user_id" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="user_name" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="user_status" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+    </Schema>
+    <Schema created="1682746717048" descriptionAttribute="" displayAttribute="group_name" id="c0a81db387c610fb8187cb8533780832" identityAttribute="group_id" instanceAttribute="" modified="1683027723255" nativeObjectType="group" objectType="group">
+      <AttributeDefinition name="group_id" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+      <AttributeDefinition entitlement="true" name="group_name" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="group_desc" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+    </Schema>
+  </Schemas>
+  <ApplicationScorecard created="1682746717047" id="c0a81db387c610fb8187cb8533770830" modified="1683027723255"/>
+</Application>

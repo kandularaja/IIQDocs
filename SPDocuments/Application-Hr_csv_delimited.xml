@@ -1,0 +1,301 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE Application PUBLIC "sailpoint.dtd" "sailpoint.dtd">
+<Application authoritative="true" connector="sailpoint.connector.DelimitedFileConnector" created="1680674400454" featuresString="DIRECT_PERMISSIONS, NO_RANDOM_ACCESS, DISCOVER_SCHEMA, ADDITIONAL_ACCOUNT_REQUEST, ACCOUNT_ONLY_REQUEST" icon="enterpriseIcon" id="c0a81db3874f1f978187500028c50097" modified="1716371528849" name="HR_CSV_Delimited" profileClass="spadmin" type="DelimitedFile">
+  <Attributes>
+    <Map>
+      <entry key="PassphraseForPrivateKey"/>
+      <entry key="PrivateKeyFilePath"/>
+      <entry key="acctAggregationEnd">
+        <value>
+          <Date>1690360933273</Date>
+        </value>
+      </entry>
+      <entry key="acctAggregationStart">
+        <value>
+          <Date>1690360933006</Date>
+        </value>
+      </entry>
+      <entry key="afterProvisioningRule"/>
+      <entry key="beforeProvisioningRule"/>
+      <entry key="compositeDefinition"/>
+      <entry key="delimiter" value=","/>
+      <entry key="file" value="C:\Eshiam\hr-application-data.csv"/>
+      <entry key="filetransport" value="ftp"/>
+      <entry key="filterEmptyRecords">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="ftpsAuthMethod" value="password"/>
+      <entry key="ftpsClientCertificateFilePath"/>
+      <entry key="ftpsClientCertificatePassphrase"/>
+      <entry key="group.delimiter" value=","/>
+      <entry key="group.file" value="C:\\Eshiam\\hr-application-Group1.csv"/>
+      <entry key="group.filetransport" value="local"/>
+      <entry key="group.filterEmptyRecords">
+        <value>
+          <Boolean>true</Boolean>
+        </value>
+      </entry>
+      <entry key="group.hasHeader">
+        <value>
+          <Boolean>true</Boolean>
+        </value>
+      </entry>
+      <entry key="group.isCaseInsensitiveMerge">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="group.isSortedByIndexColumn">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="group.mergeRows">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="group.partitionMode" value="auto"/>
+      <entry key="group.stopIfLineHasWrongColumnLength">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="group2.columnNames"/>
+      <entry key="group2.commentCharacter"/>
+      <entry key="group2.delimiter" value=","/>
+      <entry key="group2.file" value="C:\\Eshiam\\hr-application-Group2.csv"/>
+      <entry key="group2.fileEncoding"/>
+      <entry key="group2.filetransport" value="local"/>
+      <entry key="group2.filterEmptyRecords">
+        <value>
+          <Boolean>true</Boolean>
+        </value>
+      </entry>
+      <entry key="group2.filterString"/>
+      <entry key="group2.hasHeader">
+        <value>
+          <Boolean>true</Boolean>
+        </value>
+      </entry>
+      <entry key="group2.indexColumn"/>
+      <entry key="group2.isCaseInsensitiveMerge">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="group2.isSortedByIndexColumn">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="group2.mergeColumns"/>
+      <entry key="group2.mergeRows">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="group2.numberOfLinesToSkip"/>
+      <entry key="group2.partitionMode" value="auto"/>
+      <entry key="group2.regularExpression"/>
+      <entry key="group2.stopIfLineHasWrongColumnLength">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="group3.columnNames"/>
+      <entry key="group3.commentCharacter"/>
+      <entry key="group3.delimiter" value=","/>
+      <entry key="group3.file" value="C:\\Eshiam\\hr-application-Group3.csv"/>
+      <entry key="group3.fileEncoding"/>
+      <entry key="group3.filterEmptyRecords">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="group3.filterString"/>
+      <entry key="group3.hasHeader">
+        <value>
+          <Boolean>true</Boolean>
+        </value>
+      </entry>
+      <entry key="group3.indexColumn"/>
+      <entry key="group3.isCaseInsensitiveMerge">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="group3.isSortedByIndexColumn">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="group3.mergeColumns"/>
+      <entry key="group3.mergeRows">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="group3.numberOfLinesToSkip"/>
+      <entry key="group3.regularExpression"/>
+      <entry key="group3.stopIfLineHasWrongColumnLength">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="hasHeader">
+        <value>
+          <Boolean>true</Boolean>
+        </value>
+      </entry>
+      <entry key="indexColumn" value="EmployeeID"/>
+      <entry key="isCaseInsensitiveMerge">
+        <value>
+          <Boolean>true</Boolean>
+        </value>
+      </entry>
+      <entry key="isSortedByIndexColumn">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="managerCorrelationFilter">
+        <value>
+          <Filter operation="EQ" property="EmployeeID" value="Manager"/>
+        </value>
+      </entry>
+      <entry key="mergeColumns">
+        <value>
+          <List>
+            <String>G1</String>
+            <String>G2</String>
+            <String>G3</String>
+          </List>
+        </value>
+      </entry>
+      <entry key="mergeRows">
+        <value>
+          <Boolean>true</Boolean>
+        </value>
+      </entry>
+      <entry key="nativeChangeDetectionAttributeScope" value="entitlements"/>
+      <entry key="nativeChangeDetectionAttributes"/>
+      <entry key="nativeChangeDetectionEnabled">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="nativeChangeDetectionOperations"/>
+      <entry key="nativeChangeProcess" value="Do Nothing"/>
+      <entry key="parseType" value="delimited"/>
+      <entry key="partitionMode" value="auto"/>
+      <entry key="port"/>
+      <entry key="sftpAuthMethod" value="password"/>
+      <entry key="stopIfLineHasWrongColumnLength">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="sysDescriptions">
+        <value>
+          <Map>
+            <entry key="en_US" value="HR CSV Delimited"/>
+          </Map>
+        </value>
+      </entry>
+      <entry key="templateApplication" value="DelimitedFile Template"/>
+      <entry key="transportUser" value="spadmin"/>
+    </Map>
+  </Attributes>
+  <Owner>
+    <Reference class="sailpoint.object.Identity" id="c0a81db3874f140081874fc432ae00ec" name="spadmin"/>
+  </Owner>
+  <Remediators>
+    <Reference class="sailpoint.object.Identity" id="c0a81db3874f140081874fc432ae00ec" name="spadmin"/>
+  </Remediators>
+  <Schemas>
+    <Schema created="1685943196642" displayAttribute="Name" id="c0a81db3887a1d1b81888a0b9be2022c" identityAttribute="EmployeeID" instanceAttribute="" modified="1716371528850" nativeObjectType="account" objectType="account" permissionsRemediationModificationType="None">
+      <AttributeDefinition name="Name" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="GivenName" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="Surname" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="Department" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="EmployeeID" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="EmailAddress" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="NetworkID" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="Manager" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="inactiveIdentity" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="Position" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="Location" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="Grade" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+      <AttributeDefinition entitlement="true" managed="true" multi="true" name="G1" schemaObjectType="group" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+      <AttributeDefinition entitlement="true" managed="true" multi="true" name="G2" schemaObjectType="group2" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+      <AttributeDefinition entitlement="true" managed="true" multi="true" name="G3" schemaObjectType="group3" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+    </Schema>
+    <Schema aggregationType="group" created="1685705509885" descriptionAttribute="" displayAttribute="GrName" id="c0a81db3887a1d1b81887be0cbfd01d2" identityAttribute="GrID" instanceAttribute="GrName" modified="1716371528850" nativeObjectType="group3" objectType="group3" permissionsRemediationModificationType="None">
+      <AttributeDefinition name="GrID" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+      <AttributeDefinition entitlement="true" multi="true" name="GrName" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="GrDesc" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+    </Schema>
+    <Schema aggregationType="group" created="1685944373002" descriptionAttribute="" displayAttribute="GrName" id="c0a81db3887a1d1b81888a1d8f0a0283" identityAttribute="GrID" instanceAttribute="" modified="1716371528850" nativeObjectType="group2" objectType="group2" permissionsRemediationModificationType="None">
+      <AttributeDefinition name="GrID" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+      <AttributeDefinition entitlement="true" multi="true" name="GrName" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="GrDesc" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+    </Schema>
+    <Schema created="1685944373002" descriptionAttribute="" displayAttribute="GrName" id="c0a81db3887a1d1b81888a1d8f0a0284" identityAttribute="GrID" instanceAttribute="" modified="1716371528850" nativeObjectType="group" objectType="group" permissionsRemediationModificationType="None">
+      <AttributeDefinition name="GrID" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+      <AttributeDefinition entitlement="true" multi="true" name="GrName" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="GrDesc" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+    </Schema>
+  </Schemas>
+  <ApplicationScorecard created="1680674400454" id="c0a81db3874f1f978187500028c50098" modified="1716371528850"/>
+</Application>

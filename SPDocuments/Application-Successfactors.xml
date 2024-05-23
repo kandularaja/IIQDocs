@@ -1,0 +1,273 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE Application PUBLIC "sailpoint.dtd" "sailpoint.dtd">
+<Application connector="sailpoint.connector.SuccessFactorsConnector" created="1715188910949" featuresString="SEARCH, PROVISIONING, SYNC_PROVISIONING, MANAGER_LOOKUP, ENABLE, PASSWORD" icon="enterpriseIcon" id="c0a81db38f3815b6818f5939cb651c1a" name="SuccessFactors" profileClass="" type="SuccessFactors">
+  <Attributes>
+    <Map>
+      <entry key="additionalEntities" value="WorkOrder,SecondaryAssignments"/>
+      <entry key="afterProvisioningRule"/>
+      <entry key="aggPageSize" value="200"/>
+      <entry key="aggregate_future_hires">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="aggregate_inactive_employees">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="aggregate_inactive_users">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="apiTimeout" value="5"/>
+      <entry key="baseUrl" value="dsf"/>
+      <entry key="beforeProvisioningRule"/>
+      <entry key="clientID" value="hgjjh"/>
+      <entry key="companyId" value="23123sdf"/>
+      <entry key="compositeDefinition"/>
+      <entry key="encrypted" value="private_key, privateKey, password"/>
+      <entry key="filterCriteria" value="Employees"/>
+      <entry key="futureOffset" value="30"/>
+      <entry key="inactiveOffset" value="30"/>
+      <entry key="nativeChangeDetectionAttributeScope" value="entitlements"/>
+      <entry key="nativeChangeDetectionAttributes"/>
+      <entry key="nativeChangeDetectionEnabled">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="nativeChangeDetectionOperations"/>
+      <entry key="nativeChangeProcess" value="Do Nothing"/>
+      <entry key="password" value="3:ACP:BuA2KTPJp93U2oSU5h0Xx9VW20K8tKheQuHN6KDxuEo="/>
+      <entry key="picklistMapping"/>
+      <entry key="private_key" value="3:ACP:niAZacUUN1Y70vnzS6gili4lPRpUA74CYOHceMDLevQ="/>
+      <entry key="sysDescriptions">
+        <value>
+          <Map>
+            <entry key="en_US"/>
+          </Map>
+        </value>
+      </entry>
+      <entry key="templateApplication" value="SuccessFactors Template"/>
+      <entry key="userName" value="safsdf"/>
+    </Map>
+  </Attributes>
+  <Owner>
+    <Reference class="sailpoint.object.Identity" id="c0a81db3874f140081874fc432ae00ec" name="spadmin"/>
+  </Owner>
+  <ProvisioningForms>
+    <Form name="Create User" objectType="account" type="Create">
+      <Attributes>
+        <Map>
+          <entry key="pageTitle" value="Create User"/>
+        </Map>
+      </Attributes>
+      <Section>
+        <Field displayName="con_prov_policy_user_create_sf_userid" helpKey="help_con_prov_policy_user_create_sf_userid" name="Userid" required="true" type="string"/>
+        <Field displayName="con_prov_policy_user_create_sf_username" helpKey="help_con_prov_policy_user_create_sf_username" name="Username" required="true" type="string"/>
+        <Field displayName="con_prov_policy_user_create_sf_userpassword" helpKey="help_con_prov_policy_user_create_sf_userpassword" name="password" reviewRequired="true" type="secret"/>
+        <Field displayName="con_prov_policy_user_create_sf_userfirstname" helpKey="help_con_prov_policy_user_create_sf_userfirstname" name="User.FirstName" required="true" type="string"/>
+        <Field displayName="con_prov_policy_user_create_sf_userlastname" helpKey="help_con_prov_policy_user_create_sf_userlastname" name="User.LastName" required="true" type="string"/>
+        <Field displayName="con_prov_policy_user_create_sf_useremail" helpKey="help_con_prov_policy_user_create_sf_useremail" name="User.Email" required="true" type="string"/>
+        <Field displayName="con_prov_policy_user_create_sf_userstatus" helpKey="help_con_prov_policy_user_create_sf_userstatus" name="User.Status" required="true" type="string"/>
+      </Section>
+    </Form>
+  </ProvisioningForms>
+  <Schemas>
+    <Schema created="1715188910950" displayAttribute="FormalName" id="c0a81db38f3815b6818f5939cb661c1c" identityAttribute="PersonID" instanceAttribute="" nativeObjectType="account" objectType="account">
+      <AttributeDefinition name="PersonID" remediationModificationType="None" type="string">
+        <Description>PersonID</Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="Person ID External" remediationModificationType="None" type="string">
+        <Description>Person ID external</Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="Username" remediationModificationType="None" type="string">
+        <Description>Username</Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="Userid" remediationModificationType="None" type="string">
+        <Description>Userid</Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="FormalName" remediationModificationType="None" type="string">
+        <Description>FormalName</Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="Salutation" remediationModificationType="None" type="string">
+        <Description> Salutation</Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="FirstName" remediationModificationType="None" type="string">
+        <Description>FirstName</Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="MiddleName" remediationModificationType="None" type="string">
+        <Description>MiddleName</Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="LastName" remediationModificationType="None" type="string">
+        <Description>LastName</Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="PreferredName" remediationModificationType="None" type="string">
+        <Description>Preferred Name</Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="Date Of Birth" remediationModificationType="None" type="string">
+        <Description>Date Of Birth for Employee </Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="Gender" remediationModificationType="None" type="string">
+        <Description>Gender</Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="Department" remediationModificationType="None" type="string">
+        <Description>Department Name </Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="Division" remediationModificationType="None" type="string">
+        <Description>Represent Division name in the organization data </Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="Company" remediationModificationType="None" type="string">
+        <Description>The company under which  employee belongs.</Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="BusinessUnit" remediationModificationType="None" type="string">
+        <Description>Business Unit Name</Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="Location" remediationModificationType="None" type="string">
+        <Description>Work Location  Name</Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="Country" remediationModificationType="None" type="string">
+        <Description>Name of the country</Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="Nationality" remediationModificationType="None" type="string">
+        <Description>Nationality </Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="PositionNumber" remediationModificationType="None" type="string">
+        <Description>Represent Position Number associated with Employee</Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="JobTitle" remediationModificationType="None" type="string">
+        <Description>Represent Job Title Associated with Employee </Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="EmployeeType" remediationModificationType="None" type="string">
+        <Description>Represent EmployeeType</Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="EmployeeStatus" remediationModificationType="None" type="string">
+        <Description>Represent Employee Status</Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="PrimaryEmailAddress" remediationModificationType="None" type="string">
+        <Description>Primary Email Address</Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="Job Classification" remediationModificationType="None" type="string">
+        <Description>Job Classification</Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="CostCenterID" remediationModificationType="None" type="string">
+        <Description>Cost centre ID associated with employee</Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="IsContingentWorker" remediationModificationType="None" type="string">
+        <Description>Represent whether Employee is Contingent Worker or Not </Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="FLSA" remediationModificationType="None" type="string">
+        <Description>FLSA Status associated with employee</Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="AssignmentType" remediationModificationType="None" type="string">
+        <Description>Assignment Type</Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="ManagerID" remediationModificationType="None" type="string">
+        <Description>Manager ID</Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="CostCenter" remediationModificationType="None" type="string">
+        <Description>Represent Cost center associated with employee</Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="EmployeeClass" remediationModificationType="None" type="string">
+        <Description>Represent EmployeeClass</Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="IsFullTime" remediationModificationType="None" type="string">
+        <Description>Represent whether Employee is Full Time or Part Time</Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="ServiceDate" remediationModificationType="None" type="string">
+        <Description>Service start Date</Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="JobInfoLastModified" remediationModificationType="None" type="string">
+        <Description>Date when Job Information was Last Modified </Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="Position Entry Date" remediationModificationType="None" type="string">
+        <Description>Position Start date for employee</Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="LastDateWorked" remediationModificationType="None" type="string">
+        <Description>Last Date Worked</Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="Address" remediationModificationType="None" type="string">
+        <Description>Address of Employee</Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="BusinessPhone" remediationModificationType="None" type="string">
+        <Description>Business Phone</Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="BusinessPhoneCountryCode" remediationModificationType="None" type="string">
+        <Description>Business Phone Country Code</Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="BusinessExtension" remediationModificationType="None" type="string">
+        <Description>Business extension</Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="CellCountryCode" remediationModificationType="None" type="string">
+        <Description>Primary Cell Code</Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="Cell" remediationModificationType="None" type="string">
+        <Description>Primary Cell</Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="Fax" remediationModificationType="None" type="string">
+        <Description>Fax Number</Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="FutureActions" remediationModificationType="None" type="string">
+        <Description>Information about Future Actions in JSON format</Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="Termination Date" remediationModificationType="None" type="string">
+        <Description>It populates Termination Date for Employees and WorkOrder End Date for Contingent Workers.</Description>
+      </AttributeDefinition>
+      <AttributeDefinition entitlement="true" managed="true" multi="true" name="Groups" remediationModificationType="None" schemaObjectType="group" type="string">
+        <Description>Groups associated to the user</Description>
+      </AttributeDefinition>
+      <AttributeDefinition multi="true" name="Roles" remediationModificationType="None" schemaObjectType="role" type="string">
+        <Description>Roles associated to the user</Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="User.FirstName" remediationModificationType="None" type="string">
+        <Description>First name of the user</Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="User.LastName" remediationModificationType="None" type="string">
+        <Description>Last name of the user</Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="User.Email" remediationModificationType="None" type="string">
+        <Description>Email address of the user</Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="User.Status" remediationModificationType="None" type="string">
+        <Description>Status of the user</Description>
+      </AttributeDefinition>
+    </Schema>
+    <Schema aggregationType="group" created="1715188910953" descriptionAttribute="" displayAttribute="RoleName" id="c0a81db38f3815b6818f5939cb661c1d" identityAttribute="RoleID" instanceAttribute="" nativeObjectType="role" objectType="role">
+      <AttributeDefinition name="RoleName" remediationModificationType="None" required="true" type="string">
+        <Description>Name of the role</Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="RoleID" remediationModificationType="None" required="true" type="string">
+        <Description>Internal ID of the role</Description>
+      </AttributeDefinition>
+      <AttributeDefinition entitlement="true" multi="true" name="Groups" remediationModificationType="None" required="true" schemaObjectType="group" type="string">
+        <Description>Access groups associated to the role</Description>
+      </AttributeDefinition>
+    </Schema>
+    <Schema aggregationType="group" created="1715188910953" descriptionAttribute="" displayAttribute="GroupName" id="c0a81db38f3815b6818f5939cb691c1e" identityAttribute="GroupID" instanceAttribute="" nativeObjectType="group" objectType="group">
+      <AttributeDefinition name="GroupName" remediationModificationType="None" type="string">
+        <Description>Name of the group</Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="GroupID" remediationModificationType="None" type="string">
+        <Description>Internal ID of the group</Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="GroupType" remediationModificationType="None" type="string">
+        <Description>Type of the group</Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="CreatedBy" remediationModificationType="None" type="string">
+        <Description>User ID of the creator</Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="LastModifiedDate" remediationModificationType="None" type="string">
+        <Description>Date on which last modification on group is done</Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="IsStaticGroup" remediationModificationType="None" type="string">
+        <Description>Group is of type static or dynamic</Description>
+      </AttributeDefinition>
+      <AttributeDefinition multi="true" name="Roles" remediationModificationType="None" schemaObjectType="role" type="string">
+        <Description>Roles associated to the access group</Description>
+      </AttributeDefinition>
+    </Schema>
+  </Schemas>
+  <ApplicationScorecard created="1715188910949" id="c0a81db38f3815b6818f5939cb651c1b" modified="1715188911024"/>
+</Application>

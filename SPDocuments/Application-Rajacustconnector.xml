@@ -1,0 +1,140 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE Application PUBLIC "sailpoint.dtd" "sailpoint.dtd">
+<Application connector="sailpoint.connector.OpenConnectorAdapter" created="1684754797843" featuresString="GROUP_PROVISIONING, PROVISIONING, SYNC_PROVISIONING, AUTHENTICATE, PASSWORD, ENABLE, SEARCH, UNSTRUCTURED_TARGETS, DISCOVER_SCHEMA, ADDITIONAL_ACCOUNT_REQUEST, ACCOUNT_ONLY_REQUEST" icon="internetIcon" id="c0a81db388271d528188433615120d34" modified="1714653796340" name="RajaCustCOnnector" profileClass="" type="CustomConnectorTest">
+  <Attributes>
+    <Map>
+      <entry key="acctAggregationEnd">
+        <value>
+          <Date>1684837971654</Date>
+        </value>
+      </entry>
+      <entry key="acctAggregationStart">
+        <value>
+          <Date>1684837971490</Date>
+        </value>
+      </entry>
+      <entry key="afterProvisioningRule"/>
+      <entry key="authSearchAttributes">
+        <value>
+          <List>
+            <String>UserID</String>
+          </List>
+        </value>
+      </entry>
+      <entry key="beforeProvisioningRule"/>
+      <entry key="compositeDefinition"/>
+      <entry key="connectorClass" value="openconnector.CustomConnectorTest"/>
+      <entry key="division" value="IT"/>
+      <entry key="input1" value="*"/>
+      <entry key="input2" value="*"/>
+      <entry key="input3" value="*"/>
+      <entry key="input4" value="*"/>
+      <entry key="nativeChangeDetectionAttributeScope" value="entitlements"/>
+      <entry key="nativeChangeDetectionAttributes"/>
+      <entry key="nativeChangeDetectionEnabled">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="nativeChangeDetectionOperations"/>
+      <entry key="sysDescriptions">
+        <value>
+          <Map>
+            <entry key="en_US"/>
+          </Map>
+        </value>
+      </entry>
+      <entry key="templateApplication" value="CustomConnectorTest"/>
+    </Map>
+  </Attributes>
+  <Owner>
+    <Reference class="sailpoint.object.Identity" id="c0a81db3874f140081874fc432ae00ec" name="spadmin"/>
+  </Owner>
+  <ProvisioningForms>
+    <Form name="account" type="Create">
+      <Attributes>
+        <Map>
+          <entry key="pageTitle" value="account"/>
+        </Map>
+      </Attributes>
+      <Section>
+        <Field displayName="User Name" name="username" type="string">
+          <Script>
+            <Source>return identity.getName(); </Source>
+          </Script>
+        </Field>
+        <Field displayName="First Name" name="firstname" type="string">
+          <Script>
+            <Source>return identity.getFirstname(); </Source>
+          </Script>
+        </Field>
+        <Field displayName="Last Name" name="lastname" type="string">
+          <Script>
+            <Source>return identity.getLastname(); </Source>
+          </Script>
+        </Field>
+        <Field displayName="Email Address" name="email" type="string">
+          <Script>
+            <Source>return identity.getEmail(); </Source>
+          </Script>
+        </Field>
+        <Field name="disabled" type="boolean" value="false"/>
+      </Section>
+    </Form>
+    <Form name="Update Group" objectType="group" type="Update">
+      <Attributes>
+        <Map>
+          <entry key="pageTitle" value="Update Group"/>
+        </Map>
+      </Attributes>
+    </Form>
+    <Form name="Group Creation" objectType="group" type="Create">
+      <Attributes>
+        <Map>
+          <entry key="pageTitle" value="Group Creation"/>
+        </Map>
+      </Attributes>
+      <Section>
+        <Field displayName="Group Name" name="name" type="string"/>
+        <Field displayName="Description" name="description" type="string"/>
+      </Section>
+    </Form>
+  </ProvisioningForms>
+  <Schemas>
+    <Schema created="1684837929893" displayAttribute="username" id="c0a81db3884818878188482a93a5000c" identityAttribute="email" instanceAttribute="" modified="1684838674230" nativeObjectType="" objectType="account">
+      <AttributeDefinition name="username" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="firstname" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="lastname" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="email" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+      <AttributeDefinition entitlement="true" managed="true" multi="true" name="groups" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="disabled" type="boolean">
+        <Description></Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="locked" type="boolean">
+        <Description></Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="password" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+    </Schema>
+    <Schema created="1684837929893" descriptionAttribute="" displayAttribute="description" id="c0a81db3884818878188482a93a5000d" identityAttribute="name" instanceAttribute="" modified="1684838674230" nativeObjectType="" objectType="group">
+      <AttributeDefinition entitlement="true" name="name" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="description" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+    </Schema>
+  </Schemas>
+  <ApplicationScorecard created="1684754797843" id="c0a81db388271d528188433615130d35" modified="1684838674229"/>
+</Application>

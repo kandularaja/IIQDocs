@@ -1,0 +1,273 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE Application PUBLIC "sailpoint.dtd" "sailpoint.dtd">
+<Application connector="sailpoint.connector.webservices.WebServicesConnector" created="1681987772596" featuresString="PROVISIONING, ENABLE, PASSWORD, AUTHENTICATE, UNLOCK, ADDITIONAL_ACCOUNT_REQUEST, ACCOUNT_ONLY_REQUEST" id="c0a81db3879319e381879e48a0b407ce" modified="1716277278112" name="WS-REQRES" profileClass="" type="Web Services">
+  <Attributes>
+    <Map>
+      <entry key="acctAggregationEnd">
+        <value>
+          <Date>1682073767810</Date>
+        </value>
+      </entry>
+      <entry key="acctAggregationStart">
+        <value>
+          <Date>1682073766574</Date>
+        </value>
+      </entry>
+      <entry key="afterProvisioningRule"/>
+      <entry key="authenticationMethod" value="No Auth"/>
+      <entry key="beforeProvisioningRule"/>
+      <entry key="clientCertAuthEnabled">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="compositeDefinition"/>
+      <entry key="connectionParameters">
+        <value>
+          <List>
+            <Map>
+              <entry key="afterRule"/>
+              <entry key="beforeRule"/>
+              <entry key="body">
+                <value>
+                  <Map>
+                    <entry key="bodyFormData"/>
+                    <entry key="bodyFormat" value="raw"/>
+                    <entry key="jsonBody"/>
+                  </Map>
+                </value>
+              </entry>
+              <entry key="contextUrl" value="/"/>
+              <entry key="customAuthUrl"/>
+              <entry key="header"/>
+              <entry key="httpMethodType" value="GET"/>
+              <entry key="operationType" value="Test Connection"/>
+              <entry key="paginationSteps"/>
+              <entry key="pagingInitialOffset">
+                <value>
+                  <Integer>0</Integer>
+                </value>
+              </entry>
+              <entry key="pagingSize">
+                <value>
+                  <Integer>50</Integer>
+                </value>
+              </entry>
+              <entry key="parentEndpointName"/>
+              <entry key="resMappingObj"/>
+              <entry key="responseCode">
+                <value>
+                  <List>
+                    <String>200</String>
+                  </List>
+                </value>
+              </entry>
+              <entry key="rootPath"/>
+              <entry key="sequenceNumberForEndpoint" value="1"/>
+              <entry key="uniqueNameForEndPoint" value="To test connection"/>
+              <entry key="xpathNamespaces"/>
+            </Map>
+            <Map>
+              <entry key="afterRule"/>
+              <entry key="beforeRule" value="Rule_WebServiceBeforeOperationRule"/>
+              <entry key="body">
+                <value>
+                  <Map>
+                    <entry key="bodyFormData"/>
+                    <entry key="bodyFormat" value="raw"/>
+                    <entry key="jsonBody"/>
+                  </Map>
+                </value>
+              </entry>
+              <entry key="contextUrl" value="/api/users?page=1"/>
+              <entry key="customAuthUrl"/>
+              <entry key="header"/>
+              <entry key="httpMethodType" value="GET"/>
+              <entry key="operationType" value="Account Aggregation"/>
+              <entry key="paginationSteps" value="TERMINATE_IF $response.page$ > $response.total_pages$-1&#xD;&#xA;$offset$ = $offset$ + 1&#xD;&#xA;$endpoint.fullUrl$ = $application.baseUrl$ + &quot;/api/users?page=&quot; + $offset$&#xD;&#xA;&#xD;&#xA;"/>
+              <entry key="pagingInitialOffset">
+                <value>
+                  <Integer>1</Integer>
+                </value>
+              </entry>
+              <entry key="pagingSize">
+                <value>
+                  <Integer>6</Integer>
+                </value>
+              </entry>
+              <entry key="parentEndpointName"/>
+              <entry key="resMappingObj">
+                <value>
+                  <Map>
+                    <entry key="avatar" value="avatar"/>
+                    <entry key="email" value="email"/>
+                    <entry key="firstname" value="first_name"/>
+                    <entry key="id" value="id"/>
+                    <entry key="lastname" value="last_name"/>
+                  </Map>
+                </value>
+              </entry>
+              <entry key="responseCode">
+                <value>
+                  <List>
+                    <String>200</String>
+                  </List>
+                </value>
+              </entry>
+              <entry key="rootPath" value="$.data[*]"/>
+              <entry key="sequenceNumberForEndpoint" value="2"/>
+              <entry key="uniqueNameForEndPoint" value="To pull accouns"/>
+              <entry key="xpathNamespaces"/>
+            </Map>
+            <Map>
+              <entry key="afterRule"/>
+              <entry key="beforeRule"/>
+              <entry key="body">
+                <value>
+                  <Map>
+                    <entry key="bodyFormData"/>
+                    <entry key="bodyFormat" value="raw"/>
+                    <entry key="jsonBody" value=" {&#xD;&#xA;            &quot;id&quot;: 7,&#xD;&#xA;            &quot;email&quot;: &quot;michael.lawson@reqres.in&quot;,&#xD;&#xA;            &quot;first_name&quot;: &quot;Michael&quot;,&#xD;&#xA;            &quot;last_name&quot;: &quot;Lawson&quot;,&#xD;&#xA;            &quot;avatar&quot;: &quot;https://reqres.in/img/faces/7-image.jpg&quot;&#xD;&#xA;        }"/>
+                  </Map>
+                </value>
+              </entry>
+              <entry key="contextUrl" value="/api/users"/>
+              <entry key="customAuthUrl"/>
+              <entry key="header"/>
+              <entry key="httpMethodType" value="POST"/>
+              <entry key="operationType" value="Create Account"/>
+              <entry key="paginationSteps"/>
+              <entry key="pagingInitialOffset">
+                <value>
+                  <Integer>0</Integer>
+                </value>
+              </entry>
+              <entry key="pagingSize">
+                <value>
+                  <Integer>50</Integer>
+                </value>
+              </entry>
+              <entry key="parentEndpointName"/>
+              <entry key="resMappingObj"/>
+              <entry key="rootPath"/>
+              <entry key="sequenceNumberForEndpoint" value="3"/>
+              <entry key="uniqueNameForEndPoint" value="To Create account"/>
+              <entry key="xpathNamespaces"/>
+            </Map>
+          </List>
+        </value>
+      </entry>
+      <entry key="createAccountWithEntReq">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="enableHasMore" value="true"/>
+      <entry key="enableStatus"/>
+      <entry key="encrypted" value="accesstoken,refresh_token,oauth_token_info,client_secret,private_key,private_key_password,clientCertificate,clientKeySpec,resourceOwnerPassword,custom_auth_token_info"/>
+      <entry key="fixedPlanMultivaluedAttribute" value="true"/>
+      <entry key="genericWebServiceBaseUrl" value="https://reqres.in/"/>
+      <entry key="httpCookieSpecsStandard" value="true"/>
+      <entry key="isGetObjectRequiredForPTA">
+        <value>
+          <Boolean>true</Boolean>
+        </value>
+      </entry>
+      <entry key="nativeChangeDetectionAttributeScope" value="entitlements"/>
+      <entry key="nativeChangeDetectionAttributes"/>
+      <entry key="nativeChangeDetectionEnabled">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="nativeChangeDetectionOperations"/>
+      <entry key="nativeChangeProcess" value="Do Nothing"/>
+      <entry key="oAuthJwtHeader">
+        <value>
+          <Map>
+            <entry key="alg" value="RS256"/>
+          </Map>
+        </value>
+      </entry>
+      <entry key="oAuthJwtPayload">
+        <value>
+          <Map>
+            <entry key="aud"/>
+            <entry key="exp" value="15f"/>
+            <entry key="iss"/>
+            <entry key="sub"/>
+          </Map>
+        </value>
+      </entry>
+      <entry key="private_key_to_update"/>
+      <entry key="saml_assertion_url"/>
+      <entry key="saml_request_body"/>
+      <entry key="sysDescriptions">
+        <value>
+          <Map>
+            <entry key="en_US"/>
+          </Map>
+        </value>
+      </entry>
+      <entry key="templateApplication" value="Web Services"/>
+      <entry key="throwProvAfterRuleException">
+        <value>
+          <Boolean>true</Boolean>
+        </value>
+      </entry>
+      <entry key="throwProvBeforeRuleException">
+        <value>
+          <Boolean>true</Boolean>
+        </value>
+      </entry>
+      <entry key="timeoutInSeconds"/>
+      <entry key="version" value="v2"/>
+    </Map>
+  </Attributes>
+  <Owner>
+    <Reference class="sailpoint.object.Identity" id="c0a81db3874f140081874fc432ae00ec" name="spadmin"/>
+  </Owner>
+  <Schemas>
+    <Schema created="1681987772597" displayAttribute="firstname" groupAttribute="" id="c0a81db3879319e381879e48a0b507d0" identityAttribute="id" instanceAttribute="" modified="1716277278112" nativeObjectType="user" objectType="account">
+      <AttributeDefinition name="id" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="firstname" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+      <AttributeDefinition entitlement="true" managed="true" multi="true" name="lastname" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="avatar" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="email" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="fullname" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+      <CustomizationRule>
+        <Reference class="sailpoint.object.Rule" id="c0a81db387c610fb8187c62c72a3005b" name="WS_Acc_SchemaRule"/>
+      </CustomizationRule>
+    </Schema>
+    <Schema created="1681987772598" descriptionAttribute="" displayAttribute="name" id="c0a81db3879319e381879e48a0b607d1" identityAttribute="id" instanceAttribute="" modified="1716277278112" nativeObjectType="group" objectType="group">
+      <AttributeDefinition name="id" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+      <AttributeDefinition entitlement="true" name="name" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="year" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="color" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="pantone_value" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+    </Schema>
+  </Schemas>
+  <ApplicationScorecard created="1681987772596" id="c0a81db3879319e381879e48a0b407cf" modified="1716277278112"/>
+</Application>

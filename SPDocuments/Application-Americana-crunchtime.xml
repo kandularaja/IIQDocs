@@ -1,0 +1,550 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE Application PUBLIC "sailpoint.dtd" "sailpoint.dtd">
+<Application connector="sailpoint.connector.DelimitedFileConnector" created="1686216888744" featuresString="PROVISIONING, SYNC_PROVISIONING, DIRECT_PERMISSIONS, DISCOVER_SCHEMA, ADDITIONAL_ACCOUNT_REQUEST, ACCOUNT_ONLY_REQUEST" icon="enterpriseIcon" id="c0a81db3887a1d1b81889a5bd1a80f7c" modified="1714653796340" name="Americana-CrunchTime" profileClass="" type="DelimitedFile">
+  <Attributes>
+    <Map>
+      <entry key="Concept.columnNames"/>
+      <entry key="Concept.commentCharacter"/>
+      <entry key="Concept.delimiter" value=","/>
+      <entry key="Concept.file" value="C:\Eshiam\Americana_CrunchTime\Concept.csv"/>
+      <entry key="Concept.fileEncoding"/>
+      <entry key="Concept.filterEmptyRecords">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="Concept.filterString"/>
+      <entry key="Concept.hasHeader">
+        <value>
+          <Boolean>true</Boolean>
+        </value>
+      </entry>
+      <entry key="Concept.indexColumn"/>
+      <entry key="Concept.isCaseInsensitiveMerge">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="Concept.isSortedByIndexColumn">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="Concept.mergeColumns"/>
+      <entry key="Concept.mergeRows">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="Concept.numberOfLinesToSkip"/>
+      <entry key="Concept.regularExpression"/>
+      <entry key="Concept.stopIfLineHasWrongColumnLength">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="PassphraseForPrivateKey"/>
+      <entry key="PrivateKeyFilePath"/>
+      <entry key="acctAggregationEnd">
+        <value>
+          <Date>1688552525627</Date>
+        </value>
+      </entry>
+      <entry key="acctAggregationStart">
+        <value>
+          <Date>1688552525565</Date>
+        </value>
+      </entry>
+      <entry key="afterProvisioningRule"/>
+      <entry key="beforeProvisioningRule"/>
+      <entry key="buildMapRule" value="R1_BuildMaprule"/>
+      <entry key="compositeDefinition">
+        <value>
+          <CompositeDefinition accountRule="" primaryTier="Americana-CrunchTime" remediationRule="">
+            <Tiers>
+              <Tier application="Americana-CrunchTime" correlationRule=""/>
+            </Tiers>
+          </CompositeDefinition>
+        </value>
+      </entry>
+      <entry key="delimiter" value=","/>
+      <entry key="file" value="C:\\Eshiam\\Americana_CrunchTime\\Application Users_new.csv"/>
+      <entry key="filetransport" value="local"/>
+      <entry key="filterEmptyRecords">
+        <value>
+          <Boolean>true</Boolean>
+        </value>
+      </entry>
+      <entry key="ftpsAuthMethod" value="password"/>
+      <entry key="ftpsClientCertificateFilePath"/>
+      <entry key="ftpsClientCertificatePassphrase"/>
+      <entry key="group.filetransport" value="local"/>
+      <entry key="group.filterEmptyRecords">
+        <value>
+          <Boolean>true</Boolean>
+        </value>
+      </entry>
+      <entry key="group.partitionMode" value="auto"/>
+      <entry key="hasHeader">
+        <value>
+          <Boolean>true</Boolean>
+        </value>
+      </entry>
+      <entry key="hierarchy.columnNames"/>
+      <entry key="hierarchy.commentCharacter"/>
+      <entry key="hierarchy.delimiter" value=","/>
+      <entry key="hierarchy.file" value="C:\Eshiam\Americana_CrunchTime\Hierarchy.csv"/>
+      <entry key="hierarchy.fileEncoding"/>
+      <entry key="hierarchy.filterEmptyRecords">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="hierarchy.filterString"/>
+      <entry key="hierarchy.hasHeader">
+        <value>
+          <Boolean>true</Boolean>
+        </value>
+      </entry>
+      <entry key="hierarchy.indexColumn"/>
+      <entry key="hierarchy.isCaseInsensitiveMerge">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="hierarchy.isSortedByIndexColumn">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="hierarchy.mergeColumns"/>
+      <entry key="hierarchy.mergeRows">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="hierarchy.numberOfLinesToSkip"/>
+      <entry key="hierarchy.regularExpression"/>
+      <entry key="hierarchy.stopIfLineHasWrongColumnLength">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="indexColumn" value="USER_PK"/>
+      <entry key="isCaseInsensitiveMerge">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="isSortedByIndexColumn">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="location.columnNames"/>
+      <entry key="location.commentCharacter"/>
+      <entry key="location.delimiter" value=","/>
+      <entry key="location.file" value="C:\Eshiam\Americana_CrunchTime\Location.csv"/>
+      <entry key="location.fileEncoding"/>
+      <entry key="location.filterEmptyRecords">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="location.filterString"/>
+      <entry key="location.hasHeader">
+        <value>
+          <Boolean>true</Boolean>
+        </value>
+      </entry>
+      <entry key="location.indexColumn"/>
+      <entry key="location.isCaseInsensitiveMerge">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="location.isSortedByIndexColumn">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="location.mergeColumns"/>
+      <entry key="location.mergeRows">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="location.numberOfLinesToSkip"/>
+      <entry key="location.regularExpression"/>
+      <entry key="location.stopIfLineHasWrongColumnLength">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="logicalname.columnNames"/>
+      <entry key="logicalname.commentCharacter"/>
+      <entry key="logicalname.delimiter" value=","/>
+      <entry key="logicalname.file" value="C:\Eshiam\Americana_CrunchTime\Logical Name.csv"/>
+      <entry key="logicalname.fileEncoding"/>
+      <entry key="logicalname.filterEmptyRecords">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="logicalname.filterString"/>
+      <entry key="logicalname.hasHeader">
+        <value>
+          <Boolean>true</Boolean>
+        </value>
+      </entry>
+      <entry key="logicalname.indexColumn"/>
+      <entry key="logicalname.isCaseInsensitiveMerge">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="logicalname.isSortedByIndexColumn">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="logicalname.mergeColumns"/>
+      <entry key="logicalname.mergeRows">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="logicalname.numberOfLinesToSkip"/>
+      <entry key="logicalname.regularExpression"/>
+      <entry key="logicalname.stopIfLineHasWrongColumnLength">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="market..filterEmptyRecords">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="market..hasHeader">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="market..isCaseInsensitiveMerge">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="market..isSortedByIndexColumn">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="market..mergeRows">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="market..stopIfLineHasWrongColumnLength">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="market.columnNames"/>
+      <entry key="market.commentCharacter"/>
+      <entry key="market.delimiter" value=","/>
+      <entry key="market.file" value="C:\Eshiam\Americana_CrunchTime\Market.csv"/>
+      <entry key="market.fileEncoding"/>
+      <entry key="market.filterEmptyRecords">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="market.filterString"/>
+      <entry key="market.hasHeader">
+        <value>
+          <Boolean>true</Boolean>
+        </value>
+      </entry>
+      <entry key="market.indexColumn"/>
+      <entry key="market.isCaseInsensitiveMerge">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="market.isSortedByIndexColumn">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="market.mergeColumns"/>
+      <entry key="market.mergeRows">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="market.numberOfLinesToSkip"/>
+      <entry key="market.regularExpression"/>
+      <entry key="market.stopIfLineHasWrongColumnLength">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="mergeColumns">
+        <value>
+          <List>
+            <String>LOCATION_CODE</String>
+            <String>HIERARCHY_TYPE</String>
+            <String>LOGICAL_NAME</String>
+            <String>CONCEPT_CODE</String>
+            <String>USER_GROUP_NAME</String>
+          </List>
+        </value>
+      </entry>
+      <entry key="mergeRows">
+        <value>
+          <Boolean>true</Boolean>
+        </value>
+      </entry>
+      <entry key="nativeChangeDetectionAttributeScope" value="userDefined"/>
+      <entry key="nativeChangeDetectionAttributes">
+        <value>
+          <List>
+            <String>EMAIL</String>
+          </List>
+        </value>
+      </entry>
+      <entry key="nativeChangeDetectionEnabled">
+        <value>
+          <Boolean>true</Boolean>
+        </value>
+      </entry>
+      <entry key="nativeChangeDetectionOperations">
+        <value>
+          <List>
+            <String>Create</String>
+            <String>Modify</String>
+            <String>Delete</String>
+          </List>
+        </value>
+      </entry>
+      <entry key="parseType" value="delimited"/>
+      <entry key="partitionMode" value="auto"/>
+      <entry key="port"/>
+      <entry key="sftpAuthMethod" value="password"/>
+      <entry key="stopIfLineHasWrongColumnLength">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="sysDescriptions">
+        <value>
+          <Map>
+            <entry key="en_US"/>
+          </Map>
+        </value>
+      </entry>
+      <entry key="templateApplication" value="DelimitedFile Template"/>
+      <entry key="usergroup.columnNames"/>
+      <entry key="usergroup.commentCharacter"/>
+      <entry key="usergroup.delimiter" value=","/>
+      <entry key="usergroup.file" value="C:\Eshiam\Americana_CrunchTime\Group.csv"/>
+      <entry key="usergroup.fileEncoding"/>
+      <entry key="usergroup.filterEmptyRecords">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="usergroup.filterString"/>
+      <entry key="usergroup.hasHeader">
+        <value>
+          <Boolean>true</Boolean>
+        </value>
+      </entry>
+      <entry key="usergroup.indexColumn"/>
+      <entry key="usergroup.isCaseInsensitiveMerge">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="usergroup.isSortedByIndexColumn">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="usergroup.mergeColumns"/>
+      <entry key="usergroup.mergeRows">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="usergroup.numberOfLinesToSkip"/>
+      <entry key="usergroup.regularExpression"/>
+      <entry key="usergroup.stopIfLineHasWrongColumnLength">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+    </Map>
+  </Attributes>
+  <CustomizationRule>
+    <Reference class="sailpoint.object.Rule" id="c0a81db3887a1d1b8188ae0bc7576faa" name="Del-Americana-Cust_RUle"/>
+  </CustomizationRule>
+  <Owner>
+    <Reference class="sailpoint.object.Identity" id="c0a81db3874f140081874fc432ae00ec" name="spadmin"/>
+  </Owner>
+  <ProvisioningForms>
+    <Form name="Americana-Prov-pol" objectType="account" type="Create">
+      <Attributes>
+        <Map>
+          <entry key="pageTitle" value="Americana-Prov-pol"/>
+        </Map>
+      </Attributes>
+      <Section name="Section 1">
+        <Field name="USER_ID" type="string">
+          <Script>
+            <Source>return identity.getAttribute("displayName");</Source>
+          </Script>
+        </Field>
+      </Section>
+    </Form>
+  </ProvisioningForms>
+  <Schemas>
+    <Schema created="1686216987689" displayAttribute="USER_ID" id="c0a81db3887a1d1b81889a5d54290f89" identityAttribute="USER_ID" instanceAttribute="" modified="1688548204538" nativeObjectType="account" objectType="account" permissionsRemediationModificationType="None">
+      <AttributeDefinition name="USER_PK" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="LAST_NAME" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="FIRST_NAME" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="USER_ID" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+      <AttributeDefinition entitlement="true" managed="true" multi="true" name="USER_GROUP_NAME" schemaObjectType="usergroup" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="ACTIVE_FLAG" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="NEW_HIRE_FLAG" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="USER_LANGUAGE" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="EMAIL" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="TELEPHONE" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="EXTENSION" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="HAND_HELD_USER_ID" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="HAND_HELD_ACTIVE_FLAG" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="TEAMWORX_FLAG" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+      <AttributeDefinition entitlement="true" managed="true" multi="true" name="LOCATION_CODE" schemaObjectType="location" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+      <AttributeDefinition entitlement="true" managed="true" multi="true" name="MARKET_NAME" schemaObjectType="market" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+      <AttributeDefinition entitlement="true" managed="true" multi="true" name="HIERARCHY_TYPE" schemaObjectType="hierarchy" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+      <AttributeDefinition entitlement="true" managed="true" multi="true" name="LOGICAL_NAME" schemaObjectType="logicalname" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="CONSOLIDATED_DASHBOARD_FLAG" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="LIMIT_EXPORT_LOCATIONS_FLAG" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+      <AttributeDefinition entitlement="true" managed="true" multi="true" name="CONCEPT_CODE" schemaObjectType="Concept" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="BIZIQ_ACCESS_LEVEL" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="FULL_NAME" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+    </Schema>
+    <Schema aggregationType="group" created="1686217319944" descriptionAttribute="" displayAttribute="CONCEPT_NAME" id="c0a81db3887a1d1b81889a6266080f92" identityAttribute="CONCEPT_CODE" instanceAttribute="" modified="1688548204538" nativeObjectType="Concept" objectType="Concept" permissionsRemediationModificationType="None">
+      <AttributeDefinition name="CONCEPT_CODE" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="CONCEPT_NAME" schemaObjectType="Concept" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+    </Schema>
+    <Schema aggregationType="group" created="1686219761372" descriptionAttribute="" displayAttribute="MARKET_NAME" id="c0a81db3887a1d1b81889a87a6dc0fdb" identityAttribute="MARKET_PK" instanceAttribute="" modified="1688548204538" nativeObjectType="market" objectType="market" permissionsRemediationModificationType="None">
+      <AttributeDefinition name="MARKET_PK" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="MARKET_NAME" schemaObjectType="market" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+    </Schema>
+    <Schema aggregationType="group" created="1686217961928" descriptionAttribute="" displayAttribute="HIERARCHY_TYPE" id="c0a81db3887a1d1b81889a6c31c80fa5" identityAttribute="HIERARCHY_PK" instanceAttribute="" modified="1688548204538" nativeObjectType="hierarchy" objectType="hierarchy" permissionsRemediationModificationType="None">
+      <AttributeDefinition name="HIERARCHY_PK" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="HIERARCHY_TYPE" schemaObjectType="hierarchy" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+    </Schema>
+    <Schema aggregationType="group" created="1686217788384" descriptionAttribute="" displayAttribute="USER_GROUP_NAME" id="c0a81db3887a1d1b81889a698be00f9c" identityAttribute="USER_GROUP_PK" instanceAttribute="" modified="1688548204538" nativeObjectType="usergroup" objectType="usergroup" permissionsRemediationModificationType="None">
+      <AttributeDefinition name="USER_GROUP_PK" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="USER_GROUP_NAME" schemaObjectType="usergroup" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+    </Schema>
+    <Schema aggregationType="group" created="1686218093613" descriptionAttribute="" displayAttribute="LOCATION_NAME" id="c0a81db3887a1d1b81889a6e342d0fa6" identityAttribute="LOCATION_CODE" instanceAttribute="" modified="1688548204538" nativeObjectType="location" objectType="location" permissionsRemediationModificationType="None">
+      <AttributeDefinition name="COUNTRY_NAME" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="MARKET_NAME" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="CONCEPT_NAME" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="LOCATION_CODE" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="LOCATION_NAME" schemaObjectType="location" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="LOCATION_ACTIVE" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+    </Schema>
+    <Schema aggregationType="group" created="1686218282587" descriptionAttribute="" displayAttribute="LOGICAL_NAME" id="c0a81db3887a1d1b81889a71165b0faf" identityAttribute="HIERARCHY_TYPE" instanceAttribute="" modified="1688548204538" nativeObjectType="logicalname" objectType="logicalname" permissionsRemediationModificationType="None">
+      <AttributeDefinition name="HIERARCHY_TYPE" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="LOGICAL_NAME" schemaObjectType="logicalname" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="ROLE" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+    </Schema>
+  </Schemas>
+  <ApplicationScorecard created="1686216888744" id="c0a81db3887a1d1b81889a5bd1a80f7d" modified="1688548204538"/>
+</Application>

@@ -1,0 +1,220 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE Application PUBLIC "sailpoint.dtd" "sailpoint.dtd">
+<Application connector="sailpoint.connector.JDBCConnector" created="1681984026585" featuresString="DISCOVER_SCHEMA, PROVISIONING, SYNC_PROVISIONING, DIRECT_PERMISSIONS, SEARCH, ENABLE, UNLOCK, ACCOUNT_ONLY_REQUEST" icon="databaseIcon" id="c0a81db3879319e381879e0f77d80757" modified="1715852595428" name="JDBC" profileClass="" type="JDBC">
+  <AccountCorrelationConfig>
+    <Reference class="sailpoint.object.CorrelationConfig" id="c0a81db3879319e381879e24396f077b" name="jdbcacccorelation"/>
+  </AccountCorrelationConfig>
+  <Attributes>
+    <Map>
+      <entry key="SQL" value="select a.* from test.jdbcusers a, test.jdbcgroups b where a.GroupId=b.GroupId order by a.EmployeeID;"/>
+      <entry key="acctAggregationEnd">
+        <value>
+          <Date>1715852594969</Date>
+        </value>
+      </entry>
+      <entry key="acctAggregationStart">
+        <value>
+          <Date>1715852594661</Date>
+        </value>
+      </entry>
+      <entry key="afterProvisioningRule"/>
+      <entry key="aggregationMode">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="beforeProvisioningRule"/>
+      <entry key="compositeDefinition"/>
+      <entry key="deltaTable"/>
+      <entry key="driverClass" value="com.mysql.cj.jdbc.Driver"/>
+      <entry key="getDeltaSQL"/>
+      <entry key="indexColumns">
+        <value>
+          <List>
+            <String>GroupId</String>
+          </List>
+        </value>
+      </entry>
+      <entry key="isPermissionEnabled">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="jdbcExceptionBucketing">
+        <value>
+          <Boolean>true</Boolean>
+        </value>
+      </entry>
+      <entry key="jdbcgroup.SQL" value="SELECT * FROM test.jdbcgroups;"/>
+      <entry key="jdbcgroup.aggregationMode">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="jdbcgroup.deltaTable"/>
+      <entry key="jdbcgroup.driverClass" value="com.mysql.cj.jdbc.Driver"/>
+      <entry key="jdbcgroup.getDeltaSQL"/>
+      <entry key="jdbcgroup.getDirectPermObjectSQL"/>
+      <entry key="jdbcgroup.getObjectSQL"/>
+      <entry key="jdbcgroup.isPermissionEnabled">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="jdbcgroup.mergeRows">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="jdbcgroup.password" value="1:ACP:EQHEACebSs2fFBYp7uA9kAvvIqUiDNuSRsRJtpNTAsw="/>
+      <entry key="jdbcgroup.url" value="jdbc:mysql://localhost/test"/>
+      <entry key="jdbcgroup.useExecuteQuery">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="jdbcgroup.useStoredProcedureDelta">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="jdbcgroup.useStoredProcedureDirectPermission">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="jdbcgroup.useStoredProcedureGetObject">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="jdbcgroup.useStoredProcedureSqlStmt">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="jdbcgroup.user" value="root"/>
+      <entry key="mergeColumns">
+        <value>
+          <List>
+            <String>GroupId</String>
+          </List>
+        </value>
+      </entry>
+      <entry key="mergeRows">
+        <value>
+          <Boolean>true</Boolean>
+        </value>
+      </entry>
+      <entry key="nativeChangeDetectionAttributeScope" value="entitlements"/>
+      <entry key="nativeChangeDetectionAttributes"/>
+      <entry key="nativeChangeDetectionEnabled">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="nativeChangeDetectionOperations"/>
+      <entry key="nativeChangeProcess" value="Do Nothing"/>
+      <entry key="partitionMode">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="partitionStatements"/>
+      <entry key="password" value="3:ACP:rJ31Ls4N4636/yd6I9OhrEd+eVWI6U3hwnZcBJIcjho="/>
+      <entry key="provisionRule" value="globalRule"/>
+      <entry key="sysDescriptions">
+        <value>
+          <Map>
+            <entry key="en_US"/>
+          </Map>
+        </value>
+      </entry>
+      <entry key="templateApplication" value="JDBC Template"/>
+      <entry key="testConnSQL" value="select a.* from test.jdbcusers a, test.jdbcgroups b where a.GroupId=b.GroupId order by a.EmployeeID;"/>
+      <entry key="url" value="jdbc:mysql://localhost/test"/>
+      <entry key="useExecuteQuery">
+        <value>
+          <Boolean>true</Boolean>
+        </value>
+      </entry>
+      <entry key="useStoredProcedureDelta">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="useStoredProcedureDirectPermission">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="useStoredProcedureGetObject">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="useStoredProcedurePartition">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="useStoredProcedureSqlStmt">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="useStoredProcedureTestConn">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="user" value="root"/>
+    </Map>
+  </Attributes>
+  <CustomizationRule>
+    <Reference class="sailpoint.object.Rule" id="c0a81db38f3815b6818f3952bc08003c" name="CustomJDBC"/>
+  </CustomizationRule>
+  <Owner>
+    <Reference class="sailpoint.object.Identity" id="c0a81db3874f140081874fc432ae00ec" name="spadmin"/>
+  </Owner>
+  <Schemas>
+    <Schema created="1681984158294" displayAttribute="Name" id="c0a81db3879319e381879e117a56075a" identityAttribute="EmployeeID" instanceAttribute="" modified="1715852514849" nativeObjectType="account" objectType="account" permissionsRemediationModificationType="None">
+      <AttributeDefinition name="Name" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="FirstName" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="LastName" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="EmployeeID" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="EmailAddress" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="NetworkID" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+      <AttributeDefinition entitlement="true" managed="true" multi="true" name="GroupId" schemaObjectType="jdbcgroup" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="status" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+    </Schema>
+    <Schema aggregationType="group" created="1681984621516" descriptionAttribute="" displayAttribute="GroupName" id="c0a81db3879319e381879e188bcc076b" identityAttribute="GroupId" instanceAttribute="" modified="1715852514849" nativeObjectType="jdbcgroup" objectType="jdbcgroup" permissionsRemediationModificationType="None">
+      <AttributeDefinition entitlement="true" name="GroupName" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="Description" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+      <AttributeDefinition name="GroupId" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+    </Schema>
+  </Schemas>
+  <ApplicationScorecard created="1681984026585" id="c0a81db3879319e381879e0f77d90758" modified="1715852514849"/>
+</Application>

@@ -1,0 +1,400 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE Application PUBLIC "sailpoint.dtd" "sailpoint.dtd">
+<Application connector="sailpoint.connector.DelimitedFileConnector" created="1701415386468" featuresString="DIRECT_PERMISSIONS, NO_RANDOM_ACCESS, DISCOVER_SCHEMA, ADDITIONAL_ACCOUNT_REQUEST, ACCOUNT_ONLY_REQUEST" icon="enterpriseIcon" id="c0a81db38c1a15cd818c24427d640d02" modified="1714653798091" name="RSC_Delimited" profileClass="" type="DelimitedFile">
+  <Attributes>
+    <Map>
+      <entry key="Assigned Roles.columnNames">
+        <value>
+          <List>
+            <String>Technician Name</String>
+            <String>Assigned Roles</String>
+            <String>Site Association</String>
+            <String>Group Association</String>
+          </List>
+        </value>
+      </entry>
+      <entry key="Assigned Roles.delimiter" value=","/>
+      <entry key="Assigned Roles.file" value="C:\Users\srini\OneDrive\Desktop\CSV\Site_association_report ( Nov 28 2023 10_25 AM ).csv"/>
+      <entry key="Assigned Roles.filterEmptyRecords">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="Assigned Roles.hasHeader">
+        <value>
+          <Boolean>true</Boolean>
+        </value>
+      </entry>
+      <entry key="Assigned Roles.isCaseInsensitiveMerge">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="Assigned Roles.isSortedByIndexColumn">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="Assigned Roles.mergeRows">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="Assigned Roles.numberOfLinesToSkip" value="4"/>
+      <entry key="Assigned Roles.stopIfLineHasWrongColumnLength">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="Group Association.columnNames">
+        <value>
+          <List>
+            <String>Technician Name</String>
+            <String>Assigned Roles</String>
+            <String>Site Association</String>
+            <String>Group Association</String>
+          </List>
+        </value>
+      </entry>
+      <entry key="Group Association.delimiter" value=","/>
+      <entry key="Group Association.file" value="C:\Users\srini\OneDrive\Desktop\CSV\Site_association_report ( Nov 28 2023 10_25 AM ).csv"/>
+      <entry key="Group Association.filterEmptyRecords">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="Group Association.hasHeader">
+        <value>
+          <Boolean>true</Boolean>
+        </value>
+      </entry>
+      <entry key="Group Association.isCaseInsensitiveMerge">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="Group Association.isSortedByIndexColumn">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="Group Association.mergeRows">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="Group Association.numberOfLinesToSkip" value="4"/>
+      <entry key="Group Association.stopIfLineHasWrongColumnLength">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="Group1.columnNames">
+        <value>
+          <List>
+            <String>Assigned Roles</String>
+          </List>
+        </value>
+      </entry>
+      <entry key="Group1.commentCharacter"/>
+      <entry key="Group1.delimiter" value=","/>
+      <entry key="Group1.file" value="C:\Users\srini\OneDrive\Desktop\CSV\Site_association_report ( Nov 28 2023 10_25 AM ).csv"/>
+      <entry key="Group1.fileEncoding"/>
+      <entry key="Group1.filterEmptyRecords">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="Group1.filterString"/>
+      <entry key="Group1.hasHeader">
+        <value>
+          <Boolean>true</Boolean>
+        </value>
+      </entry>
+      <entry key="Group1.indexColumn"/>
+      <entry key="Group1.isCaseInsensitiveMerge">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="Group1.isSortedByIndexColumn">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="Group1.mergeColumns"/>
+      <entry key="Group1.mergeRows">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="Group1.numberOfLinesToSkip"/>
+      <entry key="Group1.regularExpression"/>
+      <entry key="Group1.stopIfLineHasWrongColumnLength">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="Group2.columnNames">
+        <value>
+          <List>
+            <String>Site Association</String>
+          </List>
+        </value>
+      </entry>
+      <entry key="Group2.commentCharacter"/>
+      <entry key="Group2.delimiter" value=","/>
+      <entry key="Group2.file" value="C:\Users\srini\OneDrive\Desktop\CSV\Site_association_report ( Nov 28 2023 10_25 AM ).csv"/>
+      <entry key="Group2.fileEncoding"/>
+      <entry key="Group2.filterEmptyRecords">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="Group2.filterString"/>
+      <entry key="Group2.hasHeader">
+        <value>
+          <Boolean>true</Boolean>
+        </value>
+      </entry>
+      <entry key="Group2.indexColumn"/>
+      <entry key="Group2.isCaseInsensitiveMerge">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="Group2.isSortedByIndexColumn">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="Group2.mergeColumns"/>
+      <entry key="Group2.mergeRows">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="Group2.numberOfLinesToSkip"/>
+      <entry key="Group2.regularExpression"/>
+      <entry key="Group2.stopIfLineHasWrongColumnLength">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="Group3.columnNames">
+        <value>
+          <List>
+            <String>Group Association</String>
+          </List>
+        </value>
+      </entry>
+      <entry key="Group3.commentCharacter"/>
+      <entry key="Group3.delimiter" value=","/>
+      <entry key="Group3.file" value="C:\Users\srini\OneDrive\Desktop\CSV\Site_association_report ( Nov 28 2023 10_25 AM ).csv"/>
+      <entry key="Group3.fileEncoding"/>
+      <entry key="Group3.filterEmptyRecords">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="Group3.filterString"/>
+      <entry key="Group3.hasHeader">
+        <value>
+          <Boolean>true</Boolean>
+        </value>
+      </entry>
+      <entry key="Group3.indexColumn"/>
+      <entry key="Group3.isCaseInsensitiveMerge">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="Group3.isSortedByIndexColumn">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="Group3.mergeColumns"/>
+      <entry key="Group3.mergeRows">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="Group3.numberOfLinesToSkip"/>
+      <entry key="Group3.regularExpression"/>
+      <entry key="Group3.stopIfLineHasWrongColumnLength">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="PassphraseForPrivateKey"/>
+      <entry key="PrivateKeyFilePath"/>
+      <entry key="Site Association.columnNames">
+        <value>
+          <List>
+            <String>Technician Name</String>
+            <String>Assigned Roles</String>
+            <String>Site Association</String>
+            <String>Group Association</String>
+          </List>
+        </value>
+      </entry>
+      <entry key="Site Association.file" value="C:\Users\srini\OneDrive\Desktop\CSV\Site_association_report ( Nov 28 2023 10_25 AM ).csv"/>
+      <entry key="Site Association.filterEmptyRecords">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="Site Association.hasHeader">
+        <value>
+          <Boolean>true</Boolean>
+        </value>
+      </entry>
+      <entry key="Site Association.isCaseInsensitiveMerge">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="Site Association.isSortedByIndexColumn">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="Site Association.mergeRows">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="Site Association.numberOfLinesToSkip" value="4"/>
+      <entry key="Site Association.regularExpression" value=","/>
+      <entry key="Site Association.stopIfLineHasWrongColumnLength">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="acctAggregationEnd">
+        <value>
+          <Date>1701685278081</Date>
+        </value>
+      </entry>
+      <entry key="acctAggregationStart">
+        <value>
+          <Date>1701685264390</Date>
+        </value>
+      </entry>
+      <entry key="afterProvisioningRule"/>
+      <entry key="beforeProvisioningRule"/>
+      <entry key="columnNames">
+        <value>
+          <List>
+            <String>Technician Name</String>
+            <String>Assigned Roles</String>
+            <String>Site Association</String>
+            <String>Group Association</String>
+          </List>
+        </value>
+      </entry>
+      <entry key="compositeDefinition"/>
+      <entry key="delimiter" value=","/>
+      <entry key="file" value="C:\Users\srini\OneDrive\Desktop\CSV\Site_association_report ( Nov 28 2023 10_25 AM ).csv"/>
+      <entry key="filetransport" value="local"/>
+      <entry key="filterEmptyRecords">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="ftpsAuthMethod" value="password"/>
+      <entry key="ftpsClientCertificateFilePath"/>
+      <entry key="ftpsClientCertificatePassphrase"/>
+      <entry key="group.filetransport" value="local"/>
+      <entry key="group.filterEmptyRecords">
+        <value>
+          <Boolean>true</Boolean>
+        </value>
+      </entry>
+      <entry key="group.partitionMode" value="auto"/>
+      <entry key="hasHeader">
+        <value>
+          <Boolean>true</Boolean>
+        </value>
+      </entry>
+      <entry key="isCaseInsensitiveMerge">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="isSortedByIndexColumn">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="mergeRows">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="nativeChangeDetectionAttributeScope" value="entitlements"/>
+      <entry key="nativeChangeDetectionAttributes"/>
+      <entry key="nativeChangeDetectionEnabled">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="nativeChangeDetectionOperations"/>
+      <entry key="numberOfLinesToSkip" value="4"/>
+      <entry key="parseType" value="delimited"/>
+      <entry key="partitionMode" value="auto"/>
+      <entry key="port"/>
+      <entry key="preIterateRule" value="RoleAssigned_PreIterate"/>
+      <entry key="sftpAuthMethod" value="password"/>
+      <entry key="stopIfLineHasWrongColumnLength">
+        <value>
+          <Boolean></Boolean>
+        </value>
+      </entry>
+      <entry key="sysDescriptions">
+        <value>
+          <Map>
+            <entry key="en_US"/>
+          </Map>
+        </value>
+      </entry>
+      <entry key="templateApplication" value="DelimitedFile Template"/>
+    </Map>
+  </Attributes>
+  <Owner>
+    <Reference class="sailpoint.object.Identity" id="c0a81db3874f140081874fc432ae00ec" name="spadmin"/>
+  </Owner>
+  <Schemas>
+    <Schema created="1701416895478" displayAttribute="Technician Name" id="c0a81db38c1a15cd818c245983f60d3b" identityAttribute="Technician Name" instanceAttribute="" modified="1701673583218" nativeObjectType="account" objectType="account" permissionsRemediationModificationType="None">
+      <AttributeDefinition name="Technician Name" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+      <AttributeDefinition entitlement="true" managed="true" multi="true" name="Assigned Roles" schemaObjectType="Group1" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+      <AttributeDefinition entitlement="true" managed="true" multi="true" name="Site Association" schemaObjectType="Group2" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+      <AttributeDefinition entitlement="true" managed="true" multi="true" name="Group Association" schemaObjectType="Group3" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+    </Schema>
+    <Schema aggregationType="group" created="1701416895479" descriptionAttribute="" displayAttribute="Assigned Roles" id="c0a81db38c1a15cd818c245983f70d3c" identityAttribute="Assigned Roles" instanceAttribute="" modified="1701673583219" nativeObjectType="Group1" objectType="Group1" permissionsRemediationModificationType="None">
+      <AttributeDefinition entitlement="true" name="Assigned Roles" schemaObjectType="Group1" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+    </Schema>
+    <Schema aggregationType="group" created="1701415386468" descriptionAttribute="" displayAttribute="Site Association" id="c0a81db38c1a15cd818c24427d640d05" identityAttribute="Site Association" instanceAttribute="" modified="1701673583219" nativeObjectType="Group2" objectType="Group2" permissionsRemediationModificationType="None">
+      <AttributeDefinition entitlement="true" name="Site Association" schemaObjectType="Group2" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+    </Schema>
+    <Schema aggregationType="group" created="1701421609058" descriptionAttribute="" displayAttribute="Group Association" id="c0a81db38c1a15cd818c24a170620d84" identityAttribute="Group Association" instanceAttribute="" modified="1701673583219" nativeObjectType="Group3" objectType="Group3" permissionsRemediationModificationType="None">
+      <AttributeDefinition entitlement="true" name="Group Association" schemaObjectType="Group3" type="string">
+        <Description></Description>
+      </AttributeDefinition>
+    </Schema>
+  </Schemas>
+  <ApplicationScorecard created="1701415386468" id="c0a81db38c1a15cd818c24427d640d03" modified="1701673583218"/>
+</Application>
