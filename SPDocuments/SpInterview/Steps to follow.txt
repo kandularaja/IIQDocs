@@ -1,0 +1,6 @@
+1) import "ProvisionIntegrMod.xml" file onto Sailpoint IIQ with Corresponding Application Reference to the csv fileAS an IntegrationConfig object
+2) import "DelimitCreate.xml" file onto Sailpoint IIQ as a rule and edit the necessary attribute requests, app name, task names on your machine
+3) import/open "ProvisionIntegrMod.java" onto Java IDE and create class file and save a copy in "\WEB_INF\classes\com\example\integration" folder
+4) Test for Create Operation for any identity to give new entitlement accesses.
+
+"C:\Program Files\Apache Software Foundation\Tomcat 9.0\webapps\identityiq8.1\WEB-INF\classes\com"

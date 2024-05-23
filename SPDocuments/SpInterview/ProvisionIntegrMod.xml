@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE IntegrationConfig PUBLIC "sailpoint.dtd" "sailpoint.dtd">
+<IntegrationConfig created="" executor="com.example.integration.ProvisionIntegrMod" id="" modified="" name="ProvisionIntegrMod" roleSyncStyle="none">
+  <Attributes>
+    <Map>
+      <entry key="modify" value="DelimitModify"/>
+      <entry key="operations" value="Add,Create,Modify,Delete,Enable,Disable"/>
+      <entry key="ruleName" value="DelimitCreate"/>
+    </Map>
+  </Attributes>
+  <ManagedResources>
+    <ManagedResource name="HR2">
+      <ApplicationRef>
+        <Reference class="sailpoint.object.Application"  name="HR2"/>
+      </ApplicationRef>
+    </ManagedResource>
+  </ManagedResources>
+</IntegrationConfig>

@@ -1,0 +1,26 @@
+Q1: Installation and Setup of IdentityIQ 8.3 P3 in the Dev , QA and Production environments.
+
+-->Installation steps.
+-->Patch update steps.
+-->How many IIQ server installation (UI,Task)
+-->Different vesion differences.
+ 8.0, 8.1,8.2 and 8.3
+
+Q2: Application:
+SAP HR/HCM,Successfactors and FieldGlass(Delimited)
+
+AD, LDAP, JDBC, Webservices (REST and SOAP), OpenLDAP
+
+Q3: Worked on upgrading IdentityIQ to 8.1 from  7.2p3.
+
+Q4:Webservice application interview questions.
+
+Q5:Good understanding of Role Based Access Control (RBAC).
+
+Q6:Experience with SSB build and deployment process.
+
+Q7:Developed Custom Workflow
+
+Q8:Certification campaigning.
+
+Q9:

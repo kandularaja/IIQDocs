@@ -1,0 +1,75 @@
+1. IT Role:
+--------
+-->Group/Collection of Entitlements from different/same applications.
+-->Detected if this IT role is part of business role.
+
+
+Inherited Roles: To inherit alredy predefined roles like IT/BU/Org etc...
+Entitilments: Each individual acess permissions from one or more application.
+
+2. Business Role:
+-------------
+-->Collection of IT Roles.
+--->First BU role will assign and Detcted if any IT roles exist.
+
+Permitted roles: (Optional)
+Permitted relationships mean the access is discretionary – these are
+permissions or entitlements a user may be allowed to have, but isn’t
+required to have. When permitted access is included with a business role,
+the entitlements are essentially “pre-screened” – we know that a user
+with this role is allowed to have the permitted access. For example,
+perhaps all employees are allowed to have VPN access but aren’t
+automatically given this access unless they or their manager requests it.
+
+Required roles: Directly assign
+Inherited role: To inherit already predefined existed roles like IT/BU/Org etc.
+
+Assignment Rule:Here we will deside (Filetr/rule/script/matchlist/population) 
+whoes identities shall incule in BU Role.
+This rule will trigger at the time of refresh task if we check 
+a. Refresh assigned and detected role and promote additional roles.
+b. Provision assignments.
+
+
+3. Organizational Roles:
+------------------------
+1. It is collection of BU and IT Roles.
+2. Inherited role: To inherit already predefined existed roles like IT/BU/Org etc.
+
+
+4. Entitlement:
+--------------
+Acess permission
+
+
+5. Rapid setup Birthright Role:
+-------------------------------
+
+Assignment Rule:Here we will deside (Filter/rule/script/matchlist/population) 
+
+
+6.Custom Role:
+--------------
+Global Settings-->Role Configuration 
+
+a. Assignbment rule
+b. Required Roles
+c. Permitted Role
+d. Inherited role
+e. Entitilments
+
+
+7. Sunrise/Sunset Roles:(Temporary access permissions in a particular peroid)
+------------------------
+Global Settings-->IdentityIQ Configuration-->Roles
+
+
+
+
+-------------------------------------
+
+BU Roles are assigned
+IT Roles are Detected and assigned.
+
+
+RBAC-->Role Based Access Control

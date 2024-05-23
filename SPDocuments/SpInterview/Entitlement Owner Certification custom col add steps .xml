@@ -1,0 +1,93 @@
+Steps to follow-
+1) create a new Rule of type="CertificationItemCustomization"
+	Refer certificationItemCustomizationRule.txt below/attached.
+	<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE Rule PUBLIC "sailpoint.dtd" "sailpoint.dtd">
+<Rule created="1698644724446" id="c0a81db38b7f179d818b7f1d8add0038" language="beanshell" modified="1698735845198" name="certificationItemCustomizationRule" type="CertificationItemCustomization">
+  <Description>
+    Rule to populate values into custom Columns in Certification Item View
+  </Description>
+  <Signature>
+    <Inputs>
+      <Argument name="context" type="SailPointContext">
+        <Description>
+          A sailpoint.api.SailPointContext object that can be used to query
+          the system or execute other SailPointContext services.
+        </Description>
+      </Argument>
+      <Argument name="certification">
+        <Description>
+          The root sailpoint.object.Certification being created.
+          At the point this rule is run, there wont be any entities or items in this certtification yet,
+          it is a stub that is used for various things while we are partitioning work to construct entities and
+          assign them to other certifications in the campaign.
+        </Description>
+      </Argument>
+      <Argument name="definition">
+        <Description>
+          The sailpoint.object.CertificationDefinition for the certification.
+        </Description>
+      </Argument>
+      <Argument name="entity">
+        <Description>
+          The sailpoint.object.CertificationEntity to assign a certifier to
+        </Description>
+      </Argument>
+      <Argument name="state">
+        <Description>
+          A map object that can be used to store data during the iteration process.
+        </Description>
+      </Argument>
+      <Argument name="item" type="sailpoint.object.CertificationItem">
+        <Description>
+          A map object that can be used to store data during the iteration process.
+        </Description>
+      </Argument>
+    </Inputs>
+  </Signature>
+  <Source>
+  import sailpoint.object.*;
+   
+  Filter filter = Filter.eq("profiles.application.name",item.getExceptionApplication());
+  //Filter filter = Filter.eq("profiles.application.name","Americana-CrunchTime");
+  QueryOptions qo = new QueryOptions();
+  qo.add(filter);
+
+  List roles = context.getObjects(Bundle.class,qo);
+
+
+  if(roles!=null){
+    for(Bundle role : roles){
+      List profs = role.getProfiles();
+      if(profs!=null){
+        for(Profile prof : profs){
+          List consts = prof.getConstraints();
+          if(conts!=null){
+            for(Filter constr : consts){
+              if(constr.getValue() instanceof String @and constr.getValue().equals(item.getExceptionAttributeValue())) item.setCustom1("true"); 
+              else if(constr.getValue() instanceof List @and constr.getValue().contains(item.getExceptionAttributeValue()))  item.setCustom1("true"); 
+                else item.setCustom1("false");
+            }
+          }
+        }
+      }
+    }
+  }
+  System.out.println("@@@@Item"+item);
+return item;  
+
+  </Source>
+</Rule>
+
+	
+2) Add (Rule-Name) as Value for key="certificationItemCustomizationRule" on System Configuration via Debug Page-
+	Example :
+	<entry key="certificationItemCustomizationRule" value="certificationItemCustomizationRule"/>
+	
+3) Add new Columns for Access Review on UIConfig under key="uiEntitlementOwnerCertificationItemDetailViewColumns"
+	(Add new ColumnConfig tag for the columns to be added with new HeaderKey,name,etc
+		<ColumnConfig dataIndex="hibernateCustom1" groupProperty="hibernateCustom1" headerKey="Role Exist" hideable="true" property="hibernateCustom1" sortProperty="hibernateCustom1" sortable="true" stateId="hibernateCustom1"/>
+		
+4) Create/Schedule/Campaign Entitlement Owner Certification as-per required Configuration
+
+5) Verify after Certification is created and Staged/Active on Access Review page to see new custom column( Role Exist) are populated

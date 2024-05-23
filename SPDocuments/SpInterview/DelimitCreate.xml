@@ -1,0 +1,122 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE Rule PUBLIC "sailpoint.dtd" "sailpoint.dtd">
+<Rule created="" id="" language="beanshell" modified="" name="DelimitCreate">
+  <Signature returnType="ProvisioningResult">
+    <Inputs>
+      <Argument name="plan">
+        <Description> The Provisioning Plan </Description>
+      </Argument>
+    </Inputs>
+  </Signature>
+  <Source>
+  import java.io.BufferedReader;
+  import java.io.BufferedWriter;
+  import java.io.File;
+  import java.io.FileNotFoundException;
+  import java.io.FileOutputStream;
+  import java.io.FileReader;
+  import java.io.FileWriter;
+  import java.io.IOException;
+  import java.io.OutputStreamWriter;
+  import sailpoint.tools.*;
+  import sailpoint.object.*;
+  import sailpoint.tools.GeneralException;
+  import java.sql.*;
+  import sailpoint.api.*;
+  import sailpoint.object.ProvisioningPlan;
+  import sailpoint.object.ProvisioningPlan.AttributeRequest;
+  import sailpoint.object.ProvisioningPlan.AccountRequest;
+  import sailpoint.object.Identity;
+  import sailpoint.object.TaskDefinition;
+  import java.util.Date;
+  
+  //method to create/write new record in the csv file
+  private void writeLine( String filepath,  String line) throws Exception {
+    File file = new File(filepath);
+    FileWriter fw = new FileWriter(file, true);
+    BufferedWriter bw = new BufferedWriter(fw);
+    bw.newLine();
+    bw.write(line);
+    bw.close();
+    fw.close();
+    System.out.println("Line has been written successfully!!");
+  }
+
+  //listing all the account requests from the plan
+  List accReqs = plan.getAccountRequests();
+
+  String line=null;
+  String filePath =null;
+  List&lt;AttributeRequest> ar = new ArrayList&lt;AttributeRequest>();
+
+  //iterating thru all the account requests
+  for (int i=0; i &lt; accReqs.size(); i++) {
+    //getting the account request,application and operation at current iteration
+    AccountRequest accReq = (AccountRequest)accReqs.get(i);
+    String applicationName = accReq.getApplicationName();
+    ProvisioningPlan.AccountRequest.Operation operation = accReq.getOperation();
+
+    //adding the left-out attribute requests needed apart from identity and entitlements to be added to the account request (can be any number of attribute requests with their 'name' and 'value')
+    //acceq.add(new AttributeRequest("NAME","VALUE"); (value can be accessed from the plan also)
+    accReq.add(new AttributeRequest("NYU NET ID",plan.getNativeIdentity())); //here NYU NET ID is a dummy account name attribute used in the application
+    accReq.add(new AttributeRequest("Approver1 NetID","RC151")); //here Approver1 NetID is a dummy manager name attribute used in the application, RC151 is hardcoded intentionally to make it simple
+
+    //getting the csv source file path location from the application
+    Application app = context.getObjectByName(Application.class, applicationName);
+    filePath = app.getAttributes().get("file");
+
+    //checking if the operation is 'not-null' and 'create'
+    if (operation != null &amp;&amp; operation.equals(ProvisioningPlan.AccountRequest.Operation.Create)) {
+      //getting schema and application attributes from the application
+      Schema sch = app.getSchema("account");
+      List appAttrs = sch.getAttributeNames();
+
+      StringBuffer lineItem = new StringBuffer(); //initializing the line to be added into csv file
+
+      //iterating thru each attribute request in the current account request
+      for (int j = 0; j &lt; appAttrs.size(); j++) {
+        //adding all the values except entitlement's into csv file (here 'Rolename' is attribute used for entitlements)
+        if(!accReq.getAttributeRequest(appAttrs.get(j)).getName().equals("Rolename")){
+          lineItem.append(accReq.getAttributeRequest(appAttrs.get(j).toString()).getValue());
+          lineItem.append(",");
+        }
+        //adding only entitlement values into a list (depends on how many entitlements selected to add)
+        if(accReq.getAttributeRequests().get(j).getName().equals("Rolename")) {
+          ar.add(accReq.getAttributeRequests().get(j));
+        }
+      }
+
+      //if the no. of entitlement to be added is only one, just adding the value into same line of csv file is enough
+      if(ar.size() == 1){
+        lineItem.append(ar.get(0).getValue());
+      } 
+      //if the no. of entitlement to be added is more than one, values shud be inside quotes and separated by "," before adding into same line of csv file
+      else if(ar.size()>1) {
+        List attrValues = new ArrayList();
+        for(int i =0; i&lt;ar.size(); i++){
+          attrValues.add(ar.get(i).getValue());
+        }
+        String finalvalue="";
+        for(String values : attrValues){
+          finalvalue=finalvalue+","+values;      
+        }
+        lineItem.append("\""+finalvalue.substring(1)+"\"");
+      }
+      line = lineItem.substring(0); //the final line to be added into csv file
+    }
+  }
+
+  //calling the method to write new record/line in the csv file
+  writeLine(filePath, line);
+
+  ProvisioningResult pr = new ProvisioningResult();
+  pr.setStatus("committed");
+
+  //running account aggregation task to refresh all accounts and their entitlements (here 'HR2' is the name of the account aggregation task for the application)
+  TaskDefinition task = context.getObjectByName(TaskDefinition.class,"HR2");
+  TaskManager tm = new TaskManager(context);
+  tm.run(task,null);
+
+  return pr;
+  </Source>
+</Rule>

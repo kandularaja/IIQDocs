@@ -1,0 +1,71 @@
+Feature String:
+---------------
+ PROVISIONING
+ SYNC_PROVISIONING
+ AUTHENTICATE
+ MANAGER_LOOKUP
+ SEARCH
+ UNSTRUCTURED_TARGETS
+ UNLOCK
+ ENABLE
+ PASSWORD
+ CURRENT_PASSWORD
+ 
+ --------------------------------------------------
+ Account only Request: it is in life cycle manager,we have to enable it first.
+ Additional account request:it is in life cycle manager
+ 
+ distingnane,SAMaccname,password,memberof(if grp)-->account
+ memberof-->group
+ ------------------------------------------
+ AD /LDAP passthrough aunthication:::
+ 
+ SAMaccname
+ msdspricname
+ mail
+ -------------------------------------------
+ LDAP Authentication::
+ cn
+ mail
+ un
+ --------------------------------------------
+ Native Rules (AD) powershell script will launch in this rules to connect to AD for create folder(Directory structure) in AD.
+ 1.connectoraftercreate
+ 2.connectoraftermodify
+ 3.connectorafterbeforecreate--Exchange email box enable in AD.
+ 4.connectorafterbeforemodify
+ ---------------------------------------------
+ what is IQService?
+ ->it is iqservice provided by MS to modify in AD  with respect to IIQ.
+ ->
+ 
+ TLS(Transfer layer security)-->Secure communication
+ -->Transfer data with encoded format
+ --------------------
+ Does JDBC supports provisining?
+ what is storedprocudure?
+ 
+ prepared statement-->
+ callable statement-->SP
+ statment-->
+ 
+ --------------------------------
+ emergency termination
+ ---------
+ webservice connector:::::::::;
+ 1. diff Authentication Method in WS connection and pupose?
+ -----------------------------
+
+
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 

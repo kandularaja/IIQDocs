@@ -1,0 +1,93 @@
+MHP 11 Applications
+
+AD-1---->No Auth-->Use TLS enabled., Domain has configured 3 servers(Get Clarification)--No Exchange server configured.
+    ---->IQService in diff server.
+	Schema--Acc
+	-----------
+	1. Identity Attribute -->distingushed name
+	2. Dis[paly Attribute -->msDS-Principlanmae
+	
+	Schema--Group
+	-------------
+	1. Identity Attribute -->distingushed name
+	2. Dis[paly Attribute -->msDS-Principlanmae
+	
+	Correlation is maitaining using correlation rule: MHP Rule AD Acc correlation.
+	Conditions:
+	Case 1. checking with employee number
+	Case 2. checking with display name
+	Case 3. checking with employee number external
+	Case 4. checking with email
+	Case 5. checking sAMAccountName (Username)
+	
+	After Provisining rule: On create identity sending mail to project lead.
+	Clarification: why context class loader is set to thread.
+	qtn:why distingushed name(Identity Attribute) is not part of prov pol form?
+	
+	
+Azure AD(Non Autho)-1
+objectid is identity attribute
+displayNamed is display attribute
+
+Correlation Rule
+
+Delimited-2 Applications.
+1. FieldGlass--Authoritative and no prov polocy.
+	
+	Schema--Acc(Filter peronalid=null || extworker-ContractType="fixed Proce"
+	------
+	1. Identity Attribute -->Personal ID
+	2. Dis[paly Attribute -->Personal ID
+	
+	PreIterate Rule:End date id before start date validation.Put end dt as st date.
+	Creation Rule:
+	5 attributed set on creation rule:inactive,lifecyclestatua,source,identitytype,username
+	setting new attributes-->inactive,lifecyclestatus,source,identitytype with defults true,PendingJoiner,Fieldglass,External.
+	fn=Kandula
+	ln=Rajasekhar
+	
+	setting to sANAccname =KRajasekhar Or Rajasekhar Or Kandula
+	
+	set attribute username to --AD account sAMAccount name of sANAccname
+	
+2. Training Data--Non Authoritative
+Customozation Rule: If Entityid="MHP_HARD_OMPCERT" set that identity in IIQ attribute "Completedtraining" to true.
+
+SAP-Dir-->5 Applications
+1. SAP BW(Non Authoritative)--->COrrelation rule  username,Email.
+2. SAP CRM(Non Authoritative)--->Correlation rule--->username,Email.
+3. SAP ERP(Non Authoritative)--->Correlation rule--->username,Email.
+What it mean Application dependencies in Provision polocy if we add AD application.
+
+4. SAP HCM(Non Authoritative)--->Correlation rule--->username,Email.
+
+	username is identity attrib,display attrib.
+	crete provision polocy with AD application dependency.
+
+5. SAP HR(Authoritative)
+	Employee number is identity attribute and display attribute.
+	No provision plolocy/form.
+Creation Rule:
+
+	5 attributed set on creation rule(Identity):inactive,lifecyclestatua,source,identitytype,username
+									  true,PendingJoiner,SAP HR,if level txt is 'student' then identitytype is studengt else 'internal'
+	fn=Kandula
+	ln=Rajasekhara
+	setting to sANAccname =KRajasekhar Or Rajasekhar Or Kandula		
+    check this fnln acc is in	"AD"
+	
+	set sixth attrubute name username which you gets from AD app.
+Custmization Rule:
+		if country is RO,CN,US do not create identity null return.
+		trim first two letters of employee number,central person id,Superviser(YYMHPVG) it it contains 0 
+		and returning those objects.	
+
+Manager Correlation:
+        YYMHPVG Vs Employee Number.
+		
+Modify Prov Rule:
+		//Connected to SAP BAPI to change/modify the HR data.
+
+Successfactors Application is Authoritatvie.
+Creation rule: if job titleid student the identitytype is Student else Internal.
+In customization rule the userid,personid is trimmimng with 0.
